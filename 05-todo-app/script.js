@@ -6,6 +6,7 @@ const filterButtons = document.querySelectorAll(".filters button");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentFilter = "all";
+let editingTaskId = null;
 
 addButton.addEventListener("click", addTask);
 
@@ -44,6 +45,22 @@ function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+function saveEditedTask(task, input) {
+    const taskText = input.value.trim();
+
+    if (taskText === "") {
+        message.textContent = "Task text cannot be empty.";
+        input.focus();
+        return;
+    }
+
+    task.text = taskText;
+    editingTaskId = null;
+    message.textContent = "";
+    saveTasks();
+    renderTasks();
+}
+
 function renderTasks() {
     taskList.innerHTML = "";
 
@@ -72,14 +89,55 @@ function renderTasks() {
             renderTasks();
         });
 
-        const taskText = document.createElement("span");
-        taskText.textContent = task.text;
+        let taskText;
+        if (editingTaskId === task.id) {
+            taskText = document.createElement("input");
+            taskText.type = "text";
+            taskText.value = task.text;
+            taskText.setAttribute("aria-label", "Edit task");
+        } else {
+            taskText = document.createElement("span");
+            taskText.textContent = task.text;
 
-        if (task.completed) {
-            taskText.style.textDecoration = "line-through";
+            if (task.completed) {
+                taskText.style.textDecoration = "line-through";
+            }
+        }
+
+        const taskActions = document.createElement("div");
+        taskActions.className = "task-actions";
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.textContent = editingTaskId === task.id ? "Save" : "Edit";
+
+        editButton.addEventListener("click", () => {
+            if (editingTaskId === task.id) {
+                saveEditedTask(task, taskText);
+            } else {
+                editingTaskId = task.id;
+                message.textContent = "";
+                renderTasks();
+                const editInput = taskList.querySelector("li input[type='text']");
+                editInput.focus();
+                editInput.select();
+            }
+        });
+
+        if (editingTaskId === task.id) {
+            taskText.addEventListener("keydown", event => {
+                if (event.key === "Enter") {
+                    saveEditedTask(task, taskText);
+                } else if (event.key === "Escape") {
+                    editingTaskId = null;
+                    message.textContent = "";
+                    renderTasks();
+                }
+            });
         }
 
         const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
         deleteButton.textContent = "Delete";
 
         deleteButton.addEventListener("click", () => {
@@ -90,7 +148,9 @@ function renderTasks() {
 
         listItem.appendChild(checkbox);
         listItem.appendChild(taskText);
-        listItem.appendChild(deleteButton);
+        taskActions.appendChild(editButton);
+        taskActions.appendChild(deleteButton);
+        listItem.appendChild(taskActions);
 
         taskList.appendChild(listItem);
     });

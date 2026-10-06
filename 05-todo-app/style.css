@@ -52,8 +52,17 @@ button {
     flex: 1;
 }
 
-#taskList li button {
+.task-actions {
+    display: flex;
+    gap: 8px;
     margin-left: auto;
+}
+
+#taskList li input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    font: inherit;
 }
 
 #message {
