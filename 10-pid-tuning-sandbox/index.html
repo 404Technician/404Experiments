@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An educational PID tuning sandbox for exploring a simple first-order process response.">
+    <title>PID Tuning Sandbox</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header class="page-header">
+            <p class="experiment-number">Experiment 10</p>
+            <h1>PID Tuning Sandbox</h1>
+            <p>Adjust controller gains and observe how a simple process responds.</p>
+        </header>
+
+        <section class="sandbox-grid" aria-label="PID controls and process response">
+            <section class="controls-card" aria-labelledby="controlsHeading">
+                <h2 id="controlsHeading">Controller settings</h2>
+                <div class="form-grid">
+                    <label>Kp <span class="term-hint">Proportional</span>
+                        <input id="kp" type="number" step="any" min="0" value="2">
+                    </label>
+                    <label>Ki <span class="term-hint">Integral</span>
+                        <input id="ki" type="number" step="any" min="0" value="0.15">
+                    </label>
+                    <label>Kd <span class="term-hint">Derivative</span>
+                        <input id="kd" type="number" step="any" min="0" value="1">
+                    </label>
+                    <label>Setpoint
+                        <input id="setpoint" type="number" step="any" value="10">
+                    </label>
+                    <label>Simulation duration (seconds)
+                        <input id="duration" type="number" min="1" max="300" step="1" value="30">
+                    </label>
+                    <label>Preset examples
+                        <select id="preset">
+                            <option value="custom">Custom</option>
+                            <option value="under-tuned">Under-tuned</option>
+                            <option value="aggressive">Aggressive</option>
+                            <option value="oscillating">Oscillating</option>
+                            <option value="reasonably-tuned">Reasonably tuned</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="action-row">
+                    <button id="runButton" type="button">Run simulation</button>
+                    <button id="resetButton" type="button" class="secondary-button">Reset</button>
+                </div>
+                <p id="validationMessage" class="validation-message" role="alert" aria-live="polite"></p>
+                <p class="model-note">Educational model only. It is not a replacement for tuning or commissioning a real process.</p>
+            </section>
+
+            <section class="chart-card" aria-labelledby="chartHeading">
+                <div class="chart-heading">
+                    <div>
+                        <h2 id="chartHeading">Simulated response</h2>
+                        <p>Process value and controller output share the same plot scale.</p>
+                    </div>
+                    <span id="runState" class="run-state">Ready</span>
+                </div>
+                <div class="chart-wrap">
+                    <canvas id="responseChart" role="img" aria-label="Plot of setpoint, process value, and controller output over time"></canvas>
+                </div>
+                <div class="chart-legend" aria-label="Chart legend">
+                    <span><i class="legend-swatch setpoint-swatch"></i>Setpoint</span>
+                    <span><i class="legend-swatch process-swatch"></i>Process value</span>
+                    <span><i class="legend-swatch output-swatch"></i>Controller output</span>
+                </div>
+                <div class="metrics-grid" aria-live="polite">
+                    <div class="metric-box"><span>Overshoot</span><output id="overshootMetric">—</output></div>
+                    <div class="metric-box"><span>Settling time</span><output id="settlingMetric">—</output></div>
+                    <div class="metric-box"><span>Final error</span><output id="finalErrorMetric">—</output></div>
+                </div>
+            </section>
+        </section>
+
+        <section class="info-section" aria-labelledby="pidHeading">
+            <h2 id="pidHeading">What the PID terms do</h2>
+            <div class="info-grid">
+                <article><h3>P · Proportional</h3><p>Responds to the current error. More proportional gain usually drives the process toward the setpoint faster, but too much can cause overshoot or oscillation.</p></article>
+                <article><h3>I · Integral</h3><p>Accumulates error over time. It can remove steady-state offset, but excessive integral action may cause overshoot and slow recovery.</p></article>
+                <article><h3>D · Derivative</h3><p>Responds to how quickly error is changing. It can add damping and reduce overshoot in this idealized model; real derivative action is sensitive to measurement noise.</p></article>
+            </div>
+        </section>
+
+        <section class="info-section metrics-note" aria-labelledby="metricsHeading">
+            <h2 id="metricsHeading">How to read the metrics and model</h2>
+            <p><strong>Overshoot</strong> is the largest amount the process rises above the setpoint, shown as a percent of the setpoint step. <strong>Settling time</strong> is the first time after which the process stays within ±2% of the step size around the setpoint until the simulation ends. <strong>Final error</strong> is setpoint minus process value at the end.</p>
+            <p>The sandbox uses a simple first-order lag process and a discrete PID controller with a fixed simulation step. Real HVAC and industrial systems can include transport delays, nonlinearities, actuator limits, sensor noise, changing loads, and safety constraints that are not represented here.</p>
+        </section>
+
+        <footer>Use the presets as starting points for learning only. Always follow validated procedures and equipment guidance when tuning real systems.</footer>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
