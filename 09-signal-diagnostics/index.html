@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Scale and diagnose 4–20 mA and 0–10 V analog signals against configurable engineering ranges.">
+    <title>Signal Diagnostics</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header class="page-header">
+            <p class="experiment-number">Experiment 09</p>
+            <h1>Signal Diagnostics</h1>
+            <p>Scale a measured analog signal and see how it compares with its configured range.</p>
+        </header>
+
+        <section class="diagnostic-card" aria-labelledby="configurationHeading">
+            <h2 id="configurationHeading">Signal configuration</h2>
+            <div class="form-grid">
+                <label>Signal type
+                    <select id="signalType">
+                        <option value="current">4–20 mA</option>
+                        <option value="voltage">0–10 V</option>
+                    </select>
+                </label>
+                <label>Engineering unit
+                    <input id="engineeringUnit" type="text" value="%" maxlength="16" autocomplete="off">
+                </label>
+                <label>Engineering minimum
+                    <input id="engineeringMinimum" type="number" step="any" value="0">
+                </label>
+                <label>Engineering maximum
+                    <input id="engineeringMaximum" type="number" step="any" value="100">
+                </label>
+                <label class="measured-field">Measured signal
+                    <span class="input-with-unit">
+                        <input id="measuredSignal" type="number" step="any" value="12">
+                        <span id="signalUnit" class="input-unit">mA</span>
+                    </span>
+                </label>
+            </div>
+
+            <div id="currentThresholds" class="threshold-panel">
+                <div class="threshold-heading">
+                    <div>
+                        <h3>Approximate 4–20 mA fault thresholds</h3>
+                        <p>Editable examples only; verify your transmitter and input-module specifications.</p>
+                    </div>
+                </div>
+                <div class="threshold-inputs">
+                    <label>Low-fault threshold
+                        <span class="input-with-unit">
+                            <input id="lowFaultThreshold" type="number" step="any" value="3.6">
+                            <span class="input-unit">mA</span>
+                        </span>
+                    </label>
+                    <label>High-fault threshold
+                        <span class="input-with-unit">
+                            <input id="highFaultThreshold" type="number" step="any" value="21">
+                            <span class="input-unit">mA</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="results-grid" aria-live="polite">
+                <div class="result-box">
+                    <span class="result-label">Engineering value</span>
+                    <output id="engineeringResult">—</output>
+                </div>
+                <div class="result-box">
+                    <span class="result-label">Percentage of span</span>
+                    <output id="spanResult">—</output>
+                </div>
+            </div>
+
+            <div class="diagnostic-result">
+                <div class="status-line">
+                    <span class="result-label">Signal status</span>
+                    <span id="statusBadge" class="status-badge status-warning">Check configuration</span>
+                </div>
+                <p id="diagnosticExplanation" role="status">Enter a valid engineering range and measured signal.</p>
+            </div>
+            <p id="validationMessage" class="validation-message" role="alert" aria-live="polite"></p>
+        </section>
+
+        <section class="info-section" aria-labelledby="diagnosticsHeading">
+            <h2 id="diagnosticsHeading">What signal diagnostics tell you</h2>
+            <div class="info-grid">
+                <article>
+                    <h3>4–20 mA live zero</h3>
+                    <p>A nonzero 4 mA lower endpoint leaves room below the normal live-zero signal to indicate a very low current, such as a possible open loop or transmitter fault. This can make current-loop diagnostics useful, but a status alone cannot identify the cause.</p>
+                </article>
+                <article>
+                    <h3>Voltage input</h3>
+                    <p>0–10 V diagnostics here compare the reading with the configured signal range only. Voltage fault detection is generally less standardized than 4–20 mA loop diagnostics and depends on the input hardware and wiring.</p>
+                </article>
+                <article>
+                    <h3>Check device limits</h3>
+                    <p>Exact fault limits vary by transmitter, PLC, controller, input module, and configuration. The default thresholds are examples, not universal specifications. Consult the equipment documentation before using them operationally.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="info-section examples-section" aria-labelledby="examplesHeading">
+            <h2 id="examplesHeading">Examples</h2>
+            <ul>
+                <li><strong>4–20 mA:</strong> 12 mA is 50% of span; with a 0–100 °C range, it represents 50 °C.</li>
+                <li><strong>Possible low-current fault:</strong> 3.5 mA is below the example 3.6 mA threshold. Actual fault interpretation depends on the connected devices.</li>
+                <li><strong>0–10 V:</strong> 5 V is 50% of span; outside 0–10 V, the engineering result is extrapolated and marked as a warning.</li>
+            </ul>
+        </section>
+
+        <footer>Calculated values outside the configured range are extrapolated, not clamped. Diagnostics are guidance and do not replace equipment specifications or electrical checks.</footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
