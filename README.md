@@ -1,6 +1,6 @@
 # 404Experiments
 
-A collection of small experiments to learn Git, GitHub, JavaScript, and web development.
+A collection of small experiments to learn Git, GitHub, JavaScript, and web development — version B.
 
 Live site:
 https://404technician.github.io/404Experiments/
