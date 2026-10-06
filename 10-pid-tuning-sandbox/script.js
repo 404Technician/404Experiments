@@ -3,7 +3,10 @@ const DEFAULTS = {
     ki: 0.15,
     kd: 1,
     setpoint: 10,
-    duration: 30
+    duration: 30,
+    processGain: 1,
+    timeConstant: 3,
+    deadTime: 0
 };
 
 const PRESETS = {
@@ -13,12 +16,22 @@ const PRESETS = {
     "reasonably-tuned": { kp: 3, ki: 1, kd: 0, setpoint: 10, duration: 30 }
 };
 
+const PROCESS_PRESETS = {
+    fast: { processGain: 1, timeConstant: 0.5, deadTime: 0 },
+    "slow-hvac": { processGain: 1, timeConstant: 30, deadTime: 2 },
+    "high-gain": { processGain: 3, timeConstant: 3, deadTime: 0 },
+    delayed: { processGain: 1, timeConstant: 3, deadTime: 6 }
+};
+
 const inputElements = {
     kp: document.getElementById("kp"),
     ki: document.getElementById("ki"),
     kd: document.getElementById("kd"),
     setpoint: document.getElementById("setpoint"),
-    duration: document.getElementById("duration")
+    duration: document.getElementById("duration"),
+    processGain: document.getElementById("processGain"),
+    timeConstant: document.getElementById("timeConstant"),
+    deadTime: document.getElementById("deadTime")
 };
 
 const canvas = document.getElementById("responseChart");
@@ -50,6 +63,15 @@ function getSettings() {
     if (Math.abs(settings.setpoint) > 100000) {
         throw new Error("Setpoint magnitude must be 100,000 or less for a readable, stable plot.");
     }
+    if (Math.abs(settings.processGain) > 100) {
+        throw new Error("Process gain magnitude must be 100 or less.");
+    }
+    if (settings.timeConstant <= 0 || settings.timeConstant > 10000) {
+        throw new Error("Time constant must be greater than 0 and no more than 10,000 seconds.");
+    }
+    if (settings.deadTime < 0 || settings.deadTime > 300) {
+        throw new Error("Dead time must be between 0 and 300 seconds.");
+    }
 
     return settings;
 }
@@ -57,8 +79,6 @@ function getSettings() {
 function simulate(settings) {
     const timeStep = 0.05;
     const steps = Math.ceil(settings.duration / timeStep);
-    const processTimeConstant = 3;
-    const processGain = 1;
     const derivativeFilter = 0.2;
     const integralLimit = 500;
     const outputLimit = 100;
@@ -67,6 +87,9 @@ function simulate(settings) {
     let integral = 0;
     let previousError = settings.setpoint - processValue;
     let filteredDerivative = 0;
+    const outputHistory = [];
+    const delaySteps = Math.round(settings.deadTime / timeStep);
+    const processStepFraction = -Math.expm1(-timeStep / settings.timeConstant);
 
     for (let index = 0; index <= steps; index += 1) {
         const time = Math.min(index * timeStep, settings.duration);
@@ -78,14 +101,17 @@ function simulate(settings) {
 
         const unconstrainedOutput = settings.kp * error + settings.ki * integral + settings.kd * filteredDerivative;
         const output = Math.max(-outputLimit, Math.min(outputLimit, unconstrainedOutput));
+        outputHistory.push(output);
         points.push({ time, setpoint: settings.setpoint, process: processValue, output });
 
         if (index === steps) {
             break;
         }
 
-        const processRate = (processGain * output - processValue) / processTimeConstant;
-        processValue += processRate * timeStep;
+        const delayedOutputIndex = index - delaySteps;
+        const delayedOutput = delayedOutputIndex >= 0 ? outputHistory[delayedOutputIndex] : 0;
+        const targetValue = settings.processGain * delayedOutput;
+        processValue += (targetValue - processValue) * processStepFraction;
 
         if (!Number.isFinite(processValue) || Math.abs(processValue) > 1e9) {
             throw new Error("Simulation became numerically unstable. Reduce the gains and try again.");
@@ -213,6 +239,11 @@ function updateMetrics(metrics) {
     document.getElementById("finalErrorMetric").textContent = formatNumber(metrics.finalError);
 }
 
+function updateActiveProcess(settings) {
+    document.getElementById("activeProcess").textContent =
+        `Process: K ${formatNumber(settings.processGain)} · τ ${formatNumber(settings.timeConstant)} s · θ ${formatNumber(settings.deadTime)} s`;
+}
+
 function clearSimulationResults() {
     latestSimulation = null;
     context.setTransform(1, 0, 0, 1, 0, 0);
@@ -237,9 +268,11 @@ function runSimulation() {
         latestSimulation = points;
         drawChart(points);
         updateMetrics(calculateMetrics(points, settings.setpoint));
+        updateActiveProcess(settings);
         document.getElementById("runState").textContent = "Complete";
     } catch (error) {
         clearSimulationResults();
+        document.getElementById("activeProcess").textContent = "Process settings invalid";
         validationMessage.textContent = error.message;
         document.getElementById("runState").textContent = "Check inputs";
         document.getElementById("runState").classList.add("error-state");
@@ -258,19 +291,38 @@ function loadPreset(presetName) {
     runSimulation();
 }
 
+function loadProcessPreset(presetName) {
+    const values = PROCESS_PRESETS[presetName];
+    if (!values) {
+        return;
+    }
+
+    Object.entries(values).forEach(([key, value]) => {
+        inputElements[key].value = value;
+    });
+    runSimulation();
+}
+
 document.getElementById("runButton").addEventListener("click", runSimulation);
 document.getElementById("resetButton").addEventListener("click", () => {
     Object.entries(DEFAULTS).forEach(([key, value]) => {
         inputElements[key].value = value;
     });
     document.getElementById("preset").value = "custom";
+    document.getElementById("processPreset").value = "custom";
     runSimulation();
 });
 document.getElementById("preset").addEventListener("change", event => loadPreset(event.target.value));
 Object.values(inputElements).forEach(input => input.addEventListener("input", () => {
-    document.getElementById("preset").value = "custom";
+    if (["kp", "ki", "kd", "setpoint", "duration"].includes(input.id)) {
+        document.getElementById("preset").value = "custom";
+    }
+    if (["processGain", "timeConstant", "deadTime"].includes(input.id)) {
+        document.getElementById("processPreset").value = "custom";
+    }
     runSimulation();
 }));
+document.getElementById("processPreset").addEventListener("change", event => loadProcessPreset(event.target.value));
 window.addEventListener("resize", () => {
     if (latestSimulation) {
         drawChart(latestSimulation);
