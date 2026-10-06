@@ -18,9 +18,10 @@ function addTask() {
     message.textContent = "";
 
     const task = {
-        id: Date.now(),
-        text: taskText
-    };
+    id: Date.now(),
+    text: taskText,
+    completed: false
+};
 
     tasks.push(task);
 
@@ -39,7 +40,36 @@ function renderTasks() {
 
     tasks.forEach(task => {
         const listItem = document.createElement("li");
-        listItem.textContent = task.text;
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = task.completed || false;
+
+        checkbox.addEventListener("change", () => {
+            task.completed = checkbox.checked;
+            saveTasks();
+            renderTasks();
+        });
+
+        const taskText = document.createElement("span");
+        taskText.textContent = task.text;
+
+        if (task.completed) {
+            taskText.style.textDecoration = "line-through";
+        }
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", () => {
+            tasks = tasks.filter(item => item.id !== task.id);
+            saveTasks();
+            renderTasks();
+        });
+
+        listItem.appendChild(checkbox);
+        listItem.appendChild(taskText);
+        listItem.appendChild(deleteButton);
 
         taskList.appendChild(listItem);
     });
