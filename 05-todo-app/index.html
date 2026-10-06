@@ -13,14 +13,28 @@
 
         <div class="todo-input">
             <input id="taskInput" type="text" placeholder="Add a task">
+            <label class="due-date-input" for="dueDateInput">
+                Due date
+                <input id="dueDateInput" type="date">
+            </label>
             <button id="addButton">Add</button>
         </div>
 
-        <div class="filters">
-    <button data-filter="all">All</button>
-    <button data-filter="active">Active</button>
-    <button data-filter="completed">Completed</button>
-</div>
+        <div class="task-controls">
+            <div class="filters">
+                <button data-filter="all">All</button>
+                <button data-filter="active">Active</button>
+                <button data-filter="completed">Completed</button>
+            </div>
+            <label class="sort-control" for="sortOrder">
+                Sort by
+                <select id="sortOrder">
+                    <option value="created">Created order</option>
+                    <option value="due-asc">Due date ascending</option>
+                    <option value="due-desc">Due date descending</option>
+                </select>
+            </label>
+        </div>
 
         <ul id="taskList"></ul>
 

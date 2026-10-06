@@ -1,8 +1,10 @@
 const taskInput = document.getElementById("taskInput");
+const dueDateInput = document.getElementById("dueDateInput");
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
 const message = document.getElementById("message");
 const filterButtons = document.querySelectorAll(".filters button");
+const sortOrder = document.getElementById("sortOrder");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentFilter = "all";
@@ -17,6 +19,8 @@ filterButtons.forEach(button => {
     });
 });
 
+sortOrder.addEventListener("change", renderTasks);
+
 function addTask() {
     const taskText = taskInput.value.trim();
 
@@ -30,7 +34,8 @@ function addTask() {
     const task = {
         id: Date.now(),
         text: taskText,
-        completed: false
+        completed: false,
+        dueDate: dueDateInput.value
     };
 
     tasks.push(task);
@@ -39,6 +44,7 @@ function addTask() {
     renderTasks();
 
     taskInput.value = "";
+    dueDateInput.value = "";
 }
 
 function saveTasks() {
@@ -64,7 +70,7 @@ function saveEditedTask(task, input) {
 function renderTasks() {
     taskList.innerHTML = "";
 
-    const filteredTasks = tasks.filter(task => {
+    const filteredTasks = tasks.map((task, index) => ({ task, index })).filter(({ task }) => {
         if (currentFilter === "active") {
             return !task.completed;
         }
@@ -74,7 +80,29 @@ function renderTasks() {
         }
 
         return true;
-    });
+    }).sort((first, second) => {
+        if (sortOrder.value === "created") {
+            return first.index - second.index;
+        }
+
+        const firstDueDate = first.task.dueDate || "";
+        const secondDueDate = second.task.dueDate || "";
+
+        if (!firstDueDate || !secondDueDate) {
+            if (!firstDueDate && !secondDueDate) {
+                return first.index - second.index;
+            }
+
+            return firstDueDate ? -1 : 1;
+        }
+
+        const dueDateOrder = firstDueDate.localeCompare(secondDueDate);
+        if (dueDateOrder === 0) {
+            return first.index - second.index;
+        }
+
+        return sortOrder.value === "due-desc" ? -dueDateOrder : dueDateOrder;
+    }).map(({ task }) => task);
 
     filteredTasks.forEach(task => {
         const listItem = document.createElement("li");
@@ -148,6 +176,14 @@ function renderTasks() {
 
         listItem.appendChild(checkbox);
         listItem.appendChild(taskText);
+        if (task.dueDate) {
+            const dueDate = document.createElement("time");
+            dueDate.className = "task-due-date";
+            dueDate.dateTime = task.dueDate;
+            dueDate.textContent = task.dueDate;
+            listItem.appendChild(dueDate);
+        }
+
         taskActions.appendChild(editButton);
         taskActions.appendChild(deleteButton);
         listItem.appendChild(taskActions);
