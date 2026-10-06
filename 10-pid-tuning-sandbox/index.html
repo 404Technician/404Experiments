@@ -44,6 +44,29 @@
                         </select>
                     </label>
                 </div>
+                <section class="process-settings" aria-labelledby="processHeading">
+                    <h3 id="processHeading">Process settings</h3>
+                    <div class="form-grid">
+                        <label>Process gain (K)
+                            <input id="processGain" type="number" step="any" value="1">
+                        </label>
+                        <label>Time constant (τ, seconds)
+                            <input id="timeConstant" type="number" min="0" step="any" value="3">
+                        </label>
+                        <label>Dead time (θ, seconds)
+                            <input id="deadTime" type="number" min="0" step="any" value="0">
+                        </label>
+                        <label>Process preset
+                            <select id="processPreset">
+                                <option value="custom">Custom process</option>
+                                <option value="fast">Fast process</option>
+                                <option value="slow-hvac">Slow HVAC process</option>
+                                <option value="high-gain">High-gain process</option>
+                                <option value="delayed">Delayed process</option>
+                            </select>
+                        </label>
+                    </div>
+                </section>
                 <div class="action-row">
                     <button id="runButton" type="button">Run simulation</button>
                     <button id="resetButton" type="button" class="secondary-button">Reset</button>
@@ -57,6 +80,7 @@
                     <div>
                         <h2 id="chartHeading">Simulated response</h2>
                         <p>Process value and controller output share the same plot scale.</p>
+                        <p id="activeProcess" class="active-process" aria-live="polite">Process: K 1 · τ 3 s · θ 0 s</p>
                     </div>
                     <span id="runState" class="run-state">Ready</span>
                 </div>
@@ -88,7 +112,7 @@
         <section class="info-section metrics-note" aria-labelledby="metricsHeading">
             <h2 id="metricsHeading">How to read the metrics and model</h2>
             <p><strong>Overshoot</strong> is the largest amount the process rises above the setpoint, shown as a percent of the setpoint step. <strong>Settling time</strong> is the first time after which the process stays within ±2% of the step size around the setpoint until the simulation ends. <strong>Final error</strong> is setpoint minus process value at the end.</p>
-            <p>The sandbox uses a simple first-order lag process and a discrete PID controller with a fixed simulation step. Real HVAC and industrial systems can include transport delays, nonlinearities, actuator limits, sensor noise, changing loads, and safety constraints that are not represented here.</p>
+            <p>The sandbox uses a simple first-order-plus-dead-time (FOPDT) process: gain scales the delayed controller output, the time constant sets the lag speed, and dead time delays the process response. Real HVAC and industrial systems can include nonlinearities, actuator saturation, noise, hysteresis, multiple time constants, changing loads, and safety constraints that are not represented here.</p>
         </section>
 
         <footer>Use the presets as starting points for learning only. Always follow validated procedures and equipment guidance when tuning real systems.</footer>

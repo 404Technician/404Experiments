@@ -373,3 +373,21 @@ footer {
         flex-direction: column;
     }
 }
+
+.process-settings {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #e2e7e8;
+}
+
+.process-settings h3 {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.chart-heading .active-process {
+    margin-bottom: 0;
+    color: #147d78;
+    font-size: 13px;
+    font-weight: 700;
+}
