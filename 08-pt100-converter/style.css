@@ -1,0 +1,221 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 36px 20px;
+    background: #f4f4f4;
+    color: #222;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    width: min(100%, 900px);
+    margin: 0 auto;
+    padding: 32px;
+    border-radius: 12px;
+    background: #fff;
+}
+
+h1,
+h2,
+p {
+    margin-top: 0;
+}
+
+.page-header {
+    margin-bottom: 28px;
+}
+
+.experiment-number {
+    margin-bottom: 8px;
+    color: #147d78;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin-bottom: 8px;
+    font-size: clamp(28px, 4vw, 38px);
+}
+
+.page-header > p:last-child,
+.card-description,
+.input-hint,
+footer {
+    color: #626b70;
+    line-height: 1.5;
+}
+
+.page-header > p:last-child {
+    margin-bottom: 0;
+}
+
+.converter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.converter-card,
+.reference-section {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid #dfe4e6;
+    border-radius: 10px;
+}
+
+.converter-card h2,
+.reference-section h2 {
+    margin-bottom: 8px;
+    font-size: 19px;
+}
+
+.card-description {
+    min-height: 42px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.value-field {
+    display: block;
+    margin-bottom: 7px;
+    color: #4e585d;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 9px 10px;
+    border: 1px solid #c8d0d3;
+    border-radius: 6px;
+    background: #fff;
+    color: #222;
+    font: inherit;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: #147d78;
+    outline: 2px solid rgb(20 125 120 / 18%);
+}
+
+.input-unit {
+    min-width: 24px;
+    color: #626b70;
+}
+
+.input-hint {
+    min-height: 21px;
+    margin: 8px 0 14px;
+    font-size: 12px;
+}
+
+.result-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 7px;
+    background: #edf7f6;
+}
+
+.result-label {
+    color: #42615f;
+    font-size: 13px;
+}
+
+.result-box output {
+    color: #126b66;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.validation-message {
+    min-height: 18px;
+    margin: 9px 0 0;
+    color: #a33131;
+    font-size: 13px;
+}
+
+.reference-section {
+    margin-top: 20px;
+}
+
+.reference-section .card-description {
+    min-height: auto;
+    margin-bottom: 12px;
+}
+
+.table-scroll {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #e5e9ea;
+}
+
+th {
+    color: #4e585d;
+    font-size: 13px;
+}
+
+td:last-child,
+th:last-child {
+    text-align: right;
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+footer {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #dfe4e6;
+    font-size: 13px;
+}
+
+footer p {
+    margin-bottom: 0;
+}
+
+@media (max-width: 680px) {
+    body {
+        padding: 16px 12px;
+    }
+
+    main {
+        padding: 22px 16px;
+    }
+
+    .converter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-description {
+        min-height: 0;
+    }
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert PT100 resistance and temperature using the IEC 60751 Callendar–Van Dusen equation.">
+    <title>PT100 Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header class="page-header">
+            <p class="experiment-number">Experiment 08</p>
+            <h1>PT100 Converter</h1>
+            <p>Convert resistance and temperature using the IEC 60751 standard.</p>
+        </header>
+
+        <section class="converter-grid" aria-label="PT100 conversion tools">
+            <article class="converter-card">
+                <h2>Resistance to temperature</h2>
+                <p class="card-description">Enter a measured resistance to find the corresponding temperature.</p>
+                <label class="value-field" for="resistanceInput">PT100 resistance</label>
+                <div class="input-with-unit">
+                    <input id="resistanceInput" type="number" step="any" value="100" aria-describedby="resistanceHint resistanceMessage">
+                    <span class="input-unit">Ω</span>
+                </div>
+                <p class="input-hint" id="resistanceHint">Supported resistance range: <span id="resistanceRange">—</span></p>
+                <div class="result-box">
+                    <span class="result-label">Temperature</span>
+                    <output id="temperatureResult" aria-live="polite">—</output>
+                </div>
+                <p class="validation-message" id="resistanceMessage" role="status" aria-live="polite"></p>
+            </article>
+
+            <article class="converter-card">
+                <h2>Temperature to resistance</h2>
+                <p class="card-description">Enter a temperature to find the corresponding PT100 resistance.</p>
+                <label class="value-field" for="temperatureInput">Temperature</label>
+                <div class="input-with-unit">
+                    <input id="temperatureInput" type="number" step="any" value="0" aria-describedby="temperatureHint temperatureMessage">
+                    <span class="input-unit">°C</span>
+                </div>
+                <p class="input-hint" id="temperatureHint">Supported temperature range: −200 to 850 °C</p>
+                <div class="result-box">
+                    <span class="result-label">PT100 resistance</span>
+                    <output id="resistanceResult" aria-live="polite">—</output>
+                </div>
+                <p class="validation-message" id="temperatureMessage" role="status" aria-live="polite"></p>
+            </article>
+        </section>
+
+        <section class="reference-section" aria-labelledby="referenceHeading">
+            <h2 id="referenceHeading">Quick reference</h2>
+            <p class="card-description">Nominal PT100 resistance at common temperatures.</p>
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Temperature</th>
+                            <th scope="col">Resistance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0 °C</td><td>100.00 Ω</td></tr>
+                        <tr><td>20 °C</td><td>107.79 Ω</td></tr>
+                        <tr><td>50 °C</td><td>119.40 Ω</td></tr>
+                        <tr><td>100 °C</td><td>138.51 Ω</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer>
+            <p>Nominal calculations only. Real measurement accuracy also depends on lead-wire resistance and whether a 2-wire, 3-wire, or 4-wire measurement configuration is used.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
