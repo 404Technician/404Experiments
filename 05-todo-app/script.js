@@ -1,8 +1,11 @@
 const taskInput = document.getElementById("taskInput");
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
-
 const message = document.getElementById("message");
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+addButton.addEventListener("click", addTask);
 
 function addTask() {
     const taskText = taskInput.value.trim();
@@ -14,10 +17,32 @@ function addTask() {
 
     message.textContent = "";
 
-    const listItem = document.createElement("li");
-    listItem.textContent = taskText;
+    const task = {
+        id: Date.now(),
+        text: taskText
+    };
 
-    taskList.appendChild(listItem);
+    tasks.push(task);
+
+    saveTasks();
+    renderTasks();
 
     taskInput.value = "";
 }
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function renderTasks() {
+    taskList.innerHTML = "";
+
+    tasks.forEach(task => {
+        const listItem = document.createElement("li");
+        listItem.textContent = task.text;
+
+        taskList.appendChild(listItem);
+    });
+}
+
+renderTasks();
