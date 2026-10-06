@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.0]
+
+### Added
+- PT100 Converter with IEC 60751 Callendar–Van Dusen conversion
+- PT100 2-wire lead resistance compensation
+- 3-wire and 4-wire measurement guidance
+- Signal Diagnostics experiment
+- 4–20 mA diagnostic states and configurable example fault thresholds
+- 0–10 V range diagnostics
+- Engineering-value extrapolation outside the configured signal range
+
 ## [1.2.0]
 
 ### Added
