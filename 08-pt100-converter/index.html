@@ -19,16 +19,38 @@
             <article class="converter-card">
                 <h2>Resistance to temperature</h2>
                 <p class="card-description">Enter a measured resistance to find the corresponding temperature.</p>
+                <label class="value-field" for="measurementConfig">Measurement configuration</label>
+                <select id="measurementConfig" aria-describedby="configurationGuidance">
+                    <option value="2-wire">2-wire</option>
+                    <option value="3-wire">3-wire</option>
+                    <option value="4-wire">4-wire</option>
+                </select>
+                <label class="value-field lead-label" for="leadResistanceInput">Total added lead resistance (2-wire correction)</label>
+                <div class="input-with-unit">
+                    <input id="leadResistanceInput" type="number" min="0" step="any" value="0" aria-describedby="leadHint leadMessage">
+                    <span class="input-unit">Ω</span>
+                </div>
+                <p class="input-hint" id="leadHint">Enter the combined resistance of both lead wires. Set to 0 Ω if unknown or not correcting.</p>
+                <p class="configuration-guidance" id="configurationGuidance" role="status" aria-live="polite"></p>
                 <label class="value-field" for="resistanceInput">PT100 resistance</label>
                 <div class="input-with-unit">
                     <input id="resistanceInput" type="number" step="any" value="100" aria-describedby="resistanceHint resistanceMessage">
                     <span class="input-unit">Ω</span>
                 </div>
-                <p class="input-hint" id="resistanceHint">Supported resistance range: <span id="resistanceRange">—</span></p>
+                <p class="input-hint" id="resistanceHint">Supported compensated PT100 resistance: <span id="resistanceRange">—</span></p>
+                <div class="result-box result-detail">
+                    <span class="result-label">Measured resistance</span>
+                    <output id="measuredResistanceResult" aria-live="polite">—</output>
+                </div>
+                <div class="result-box result-detail">
+                    <span class="result-label">Compensated PT100 resistance</span>
+                    <output id="compensatedResistanceResult" aria-live="polite">—</output>
+                </div>
                 <div class="result-box">
                     <span class="result-label">Temperature</span>
                     <output id="temperatureResult" aria-live="polite">—</output>
                 </div>
+                <p class="validation-message" id="leadMessage" role="status" aria-live="polite"></p>
                 <p class="validation-message" id="resistanceMessage" role="status" aria-live="polite"></p>
             </article>
 
@@ -47,6 +69,34 @@
                 </div>
                 <p class="validation-message" id="temperatureMessage" role="status" aria-live="polite"></p>
             </article>
+        </section>
+
+        <section class="reference-section wiring-guidance" aria-labelledby="wiringHeading">
+            <h2 id="wiringHeading">Understanding lead-wire compensation</h2>
+            <div class="guidance-grid">
+                <article>
+                    <h3>2-wire</h3>
+                    <p>Both cable conductors are in series with the sensor, so their combined resistance adds to the measured value. The optional software correction subtracts an entered total lead resistance; it is an estimate, not a change to the electrical measurement.</p>
+                </article>
+                <article>
+                    <h3>3-wire</h3>
+                    <p>A proper 3-wire instrument circuit compensates lead resistance when the lead resistances are approximately equal. Selecting 3-wire here only explains that method; this page does not simulate that circuit or apply a manual correction.</p>
+                </article>
+                <article>
+                    <h3>4-wire</h3>
+                    <p>A proper 4-wire (Kelvin) measurement separates excitation and sensing leads, effectively eliminating lead resistance from the resistance measurement. No manual lead correction is applied here.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="reference-section example-section" aria-labelledby="exampleHeading">
+            <h2 id="exampleHeading">2-wire compensation example</h2>
+            <p class="card-description">A PT100 at 100 °C has a nominal resistance of <strong id="exampleSensorResistance">—</strong>. With 1.0 Ω total resistance from both leads, the instrument measures <strong id="exampleMeasuredResistance">—</strong>.</p>
+            <div class="example-results">
+                <p>Without correction: <output id="exampleUncorrectedTemperature">—</output></p>
+                <p>After subtracting 1.0 Ω: <output id="exampleCorrectedTemperature">—</output></p>
+            </div>
+            <p class="input-hint">The apparent temperature error is caused by the extra series resistance; actual field results depend on the sensor, wiring, and measuring instrument.</p>
         </section>
 
         <section class="reference-section" aria-labelledby="referenceHeading">
