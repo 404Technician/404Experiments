@@ -11,4 +11,4 @@ A simple generator that creates a random five-color palette.
 
 - Random hexadecimal colors
 - Dynamic HTML elements
-- Reviewing changes with Pull Request diffs
+- Reviewing changes with Pull Request diffs 
