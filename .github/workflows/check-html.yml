@@ -1,0 +1,25 @@
+name: Check HTML files
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-files:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Find HTML files
+        run: |
+          echo "Checking HTML files..."
+          find . -name "*.html" -print
+
+      - name: Check index files exist
+        run: |
+          test -f index.html
+          test -f 01-random-number/index.html
+          test -f 02-dice-roller/index.html
+          test -f 03-counter/index.html
