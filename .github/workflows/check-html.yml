@@ -22,4 +22,4 @@ jobs:
           test -f index.html
           test -f 01-random-number/index.html
           test -f 02-dice-roller/index.html
-          test -f 99-does-not-exist/index.html
+          test -f 03-counter/index.html
