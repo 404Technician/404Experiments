@@ -32,4 +32,16 @@ At `T = 0 °C`, the equation gives:
 
 ## Measurement note
 
-These are nominal sensor calculations. Real measurement accuracy also depends on lead-wire resistance and the measurement configuration: 2-wire measurements include more lead resistance error, while 3-wire and 4-wire configurations compensate for lead resistance to varying degrees.
+These are nominal sensor calculations. Real field accuracy also depends on transmitter/input accuracy, cable resistance balance, sensor tolerance, and wiring quality.
+
+## Measurement configurations and lead compensation
+
+- **2-wire:** Both conductors are in series with the RTD. Their combined resistance adds to the measured resistance and, if left uncorrected, appears as a higher temperature. The converter's optional lead input is the **total resistance of both leads**; selecting 2-wire subtracts that entered value from the measured resistance before applying the IEC 60751 inverse. Leave the field blank or enter zero for no correction. This is a software estimate, not an electrical compensation circuit, and it is only as accurate as the lead-resistance estimate.
+- **3-wire:** A proper instrument compensates lead resistance through its 3-wire measurement circuit, assuming the relevant lead resistances are approximately equal. The converter explains this mode but does not claim to reproduce the circuit or apply software lead correction.
+- **4-wire:** A proper Kelvin measurement separates current and voltage-sensing paths, effectively removing lead resistance from the measured sensor resistance. The converter does not apply a manual correction in 4-wire mode.
+
+### 2-wire example
+
+At 100 °C, a nominal PT100 is approximately 138.51 Ω. With 1.0 Ω total lead resistance, the instrument reads approximately 139.51 Ω. Without correction, that reads as approximately 102.64 °C. Subtracting the estimated 1.0 Ω restores the calculated temperature to 100.00 °C.
+
+Manual compensation cannot replace suitable wiring or a proper 3-wire/4-wire measurement. Actual accuracy depends on the lead estimate and cable resistance balance as well as sensor tolerance, wiring quality, and transmitter/input accuracy.
