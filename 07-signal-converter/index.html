@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Scale 4–20 mA and 0–10 V signals to and from engineering values.">
+    <title>Signal Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <header class="page-header">
+            <p class="experiment-number">Experiment 07</p>
+            <h1>Signal Converter</h1>
+            <p>Convert standard analog signals to engineering values and back.</p>
+        </header>
+
+        <section class="signal-section" aria-labelledby="current-heading">
+            <div class="section-heading">
+                <div>
+                    <p class="signal-range">LIVE ZERO · 4–20 mA</p>
+                    <h2 id="current-heading">Current signal</h2>
+                </div>
+                <p class="section-description">Choose an engineering range for each conversion.</p>
+            </div>
+
+            <div class="converter-grid">
+                <article class="converter-card" data-direction="to-engineering" data-signal-min="4" data-signal-max="20" data-signal-unit="mA">
+                    <h3>4–20 mA to engineering value</h3>
+                    <div class="engineering-range">
+                        <label>Engineering minimum
+                            <input class="engineering-min" type="number" step="any" value="0">
+                        </label>
+                        <label>Engineering maximum
+                            <input class="engineering-max" type="number" step="any" value="100">
+                        </label>
+                        <label class="unit-field">Engineering unit
+                            <input class="engineering-unit" type="text" value="°C" maxlength="12" autocomplete="off">
+                        </label>
+                    </div>
+                    <label class="value-field">Input signal
+                        <span class="input-with-unit">
+                            <input class="conversion-input" type="number" step="any" value="12">
+                            <span class="input-unit">mA</span>
+                        </span>
+                    </label>
+                    <div class="result-box">
+                        <span class="result-label">Engineering value</span>
+                        <output class="conversion-result" aria-live="polite">—</output>
+                    </div>
+                    <p class="validation-message" role="status" aria-live="polite"></p>
+                </article>
+
+                <article class="converter-card" data-direction="to-signal" data-signal-min="4" data-signal-max="20" data-signal-unit="mA">
+                    <h3>Engineering value to 4–20 mA</h3>
+                    <div class="engineering-range">
+                        <label>Engineering minimum
+                            <input class="engineering-min" type="number" step="any" value="0">
+                        </label>
+                        <label>Engineering maximum
+                            <input class="engineering-max" type="number" step="any" value="100">
+                        </label>
+                        <label class="unit-field">Engineering unit
+                            <input class="engineering-unit" type="text" value="°C" maxlength="12" autocomplete="off">
+                        </label>
+                    </div>
+                    <label class="value-field">Input engineering value
+                        <span class="input-with-unit">
+                            <input class="conversion-input" type="number" step="any" value="50">
+                            <span class="input-unit">°C</span>
+                        </span>
+                    </label>
+                    <div class="result-box">
+                        <span class="result-label">Output current</span>
+                        <output class="conversion-result" aria-live="polite">—</output>
+                    </div>
+                    <p class="validation-message" role="status" aria-live="polite"></p>
+                </article>
+            </div>
+        </section>
+
+        <section class="signal-section" aria-labelledby="voltage-heading">
+            <div class="section-heading">
+                <div>
+                    <p class="signal-range">ZERO-BASED · 0–10 V</p>
+                    <h2 id="voltage-heading">Voltage signal</h2>
+                </div>
+                <p class="section-description">Values outside the configured range are extrapolated.</p>
+            </div>
+
+            <div class="converter-grid">
+                <article class="converter-card" data-direction="to-engineering" data-signal-min="0" data-signal-max="10" data-signal-unit="V">
+                    <h3>0–10 V to engineering value</h3>
+                    <div class="engineering-range">
+                        <label>Engineering minimum
+                            <input class="engineering-min" type="number" step="any" value="0">
+                        </label>
+                        <label>Engineering maximum
+                            <input class="engineering-max" type="number" step="any" value="100">
+                        </label>
+                        <label class="unit-field">Engineering unit
+                            <input class="engineering-unit" type="text" value="°C" maxlength="12" autocomplete="off">
+                        </label>
+                    </div>
+                    <label class="value-field">Input signal
+                        <span class="input-with-unit">
+                            <input class="conversion-input" type="number" step="any" value="5">
+                            <span class="input-unit">V</span>
+                        </span>
+                    </label>
+                    <div class="result-box">
+                        <span class="result-label">Engineering value</span>
+                        <output class="conversion-result" aria-live="polite">—</output>
+                    </div>
+                    <p class="validation-message" role="status" aria-live="polite"></p>
+                </article>
+
+                <article class="converter-card" data-direction="to-signal" data-signal-min="0" data-signal-max="10" data-signal-unit="V">
+                    <h3>Engineering value to 0–10 V</h3>
+                    <div class="engineering-range">
+                        <label>Engineering minimum
+                            <input class="engineering-min" type="number" step="any" value="0">
+                        </label>
+                        <label>Engineering maximum
+                            <input class="engineering-max" type="number" step="any" value="100">
+                        </label>
+                        <label class="unit-field">Engineering unit
+                            <input class="engineering-unit" type="text" value="°C" maxlength="12" autocomplete="off">
+                        </label>
+                    </div>
+                    <label class="value-field">Input engineering value
+                        <span class="input-with-unit">
+                            <input class="conversion-input" type="number" step="any" value="50">
+                            <span class="input-unit">°C</span>
+                        </span>
+                    </label>
+                    <div class="result-box">
+                        <span class="result-label">Output voltage</span>
+                        <output class="conversion-result" aria-live="polite">—</output>
+                    </div>
+                    <p class="validation-message" role="status" aria-live="polite"></p>
+                </article>
+            </div>
+        </section>
+
+        <footer>
+            Engineering ranges may be negative. Results are not clamped to the configured range.
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
