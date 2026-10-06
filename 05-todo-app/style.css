@@ -19,14 +19,31 @@ h1 {
 
 .todo-input {
     display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 25px;
 }
 
-.todo-input input {
+.todo-input > input[type="text"] {
     flex: 1;
+    min-width: 180px;
     padding: 12px;
     font-size: 16px;
+}
+
+.due-date-input,
+.sort-control {
+    display: grid;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.due-date-input input,
+.sort-control select {
+    min-height: 38px;
+    padding: 6px 8px;
+    font: inherit;
 }
 
 button {
@@ -52,6 +69,16 @@ button {
     flex: 1;
 }
 
+#taskList li > span:first-of-type {
+    flex: 1;
+}
+
+.task-due-date {
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
 .task-actions {
     display: flex;
     gap: 8px;
@@ -73,6 +100,15 @@ button {
 
 .filters {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
+}
+
+.task-controls {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
     margin-bottom: 20px;
 }
