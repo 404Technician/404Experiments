@@ -2,10 +2,19 @@ const taskInput = document.getElementById("taskInput");
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
 const message = document.getElementById("message");
+const filterButtons = document.querySelectorAll(".filters button");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let currentFilter = "all";
 
 addButton.addEventListener("click", addTask);
+
+filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        currentFilter = button.dataset.filter;
+        renderTasks();
+    });
+});
 
 function addTask() {
     const taskText = taskInput.value.trim();
@@ -18,10 +27,10 @@ function addTask() {
     message.textContent = "";
 
     const task = {
-    id: Date.now(),
-    text: taskText,
-    completed: false
-};
+        id: Date.now(),
+        text: taskText,
+        completed: false
+    };
 
     tasks.push(task);
 
@@ -38,7 +47,19 @@ function saveTasks() {
 function renderTasks() {
     taskList.innerHTML = "";
 
-    tasks.forEach(task => {
+    const filteredTasks = tasks.filter(task => {
+        if (currentFilter === "active") {
+            return !task.completed;
+        }
+
+        if (currentFilter === "completed") {
+            return task.completed;
+        }
+
+        return true;
+    });
+
+    filteredTasks.forEach(task => {
         const listItem = document.createElement("li");
 
         const checkbox = document.createElement("input");
