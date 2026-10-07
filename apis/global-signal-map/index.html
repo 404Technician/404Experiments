@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Recent USGS earthquakes, the ISS position and six weather locations on an interactive world map.">
+<title>GLOBAL SIGNAL MAP | 404Experiments</title>
+<link rel="stylesheet" href="../../site.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+<link rel="stylesheet" href="map.css">
+<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous" defer></script>
+<script src="map.js" defer></script>
+</head>
+<body class="global-map-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<nav class="site-nav" aria-label="Site navigation">
+<a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
+<div class="site-nav-links">
+<a href="../../index.html"><span>NEXUS</span><span class="nav-meaning">Home</span></a>
+<a href="../../experiments/index.html"><span>LAB</span><span class="nav-meaning">Experiments</span></a>
+<a class="nav-index" aria-current="location" href="../index.html"><span>SIGNALS</span><span class="nav-meaning">Live data</span></a>
+<a href="../../archive/index.html"><span>ARCHIVE</span><span class="nav-meaning">Knowledge</span></a>
+</div></nav>
+<main class="global-map-main" id="main-content" tabindex="-1">
+<header class="map-intro"><p class="section-index">SIGNALS / GLOBAL SIGNAL NETWORK</p><h1>GLOBAL<br><span>SIGNAL MAP</span></h1>
+<p class="map-subheading">Live geographic transmissions</p><p>Public signals received from systems beyond the junction.</p></header>
+<div class="map-telemetry" aria-label="Feed reception">
+<div><span>EARTHQUAKES / M2.5+ / 24H</span><strong id="seismic-value">—</strong><p id="seismic-status" data-state="loading">SEISMIC / LOADING</p></div>
+<div><span>ISS / CURRENT POSITION</span><strong id="orbital-value">—</strong><p id="orbital-status" data-state="loading">ORBITAL / LOADING</p></div>
+<div><span>WEATHER / FIXED LOCATIONS</span><strong id="atmospheric-value">—</strong><p id="atmospheric-status" data-state="loading">ATMOSPHERIC / LOADING</p></div>
+<div><span>LAST SYNC / UTC</span><strong><time id="last-sync">—</time></strong><p>Full refresh completion</p></div>
+</div>
+<div class="map-toolbar">
+<fieldset><legend>DISPLAY</legend><label><input type="checkbox" id="show-seismic" checked><span class="legend-dot seismic-dot"></span>SEISMIC</label><label><input type="checkbox" id="show-orbital" checked><span class="legend-dot orbital-dot"></span>ORBITAL</label><label><input type="checkbox" id="show-atmospheric" checked><span class="legend-dot atmospheric-dot"></span>ATMOSPHERIC</label></fieldset>
+<div class="map-actions"><button id="world-view" type="button">WORLD VIEW</button><button id="refresh-map" type="button" disabled>REFRESH SIGNALS</button></div>
+</div>
+<p id="reception-status" class="map-note" role="status">Receiving three independent feeds…</p>
+<div id="global-map" aria-label="Interactive world map. Use arrow keys to pan, plus and minus to zoom, and Enter on a marker to inspect."><p class="map-placeholder">Preparing geographic map…</p></div>
+<p id="basemap-status" class="map-note">BASEMAP / Receiving OpenStreetMap tiles</p>
+<div class="map-notes"><p>Drag or touch-pan to explore. Scroll or pinch to zoom. Select a marker for its source observation.</p><p>Orbital: 20-second refresh · Seismic: 5 minutes · Atmospheric: 10 minutes. Polling pauses while hidden or a layer is off. Source timestamps differ.</p></div>
+<details class="received-signals"><summary>Received observations / accessible text view</summary><div id="observations"><p>Waiting for source data.</p></div></details>
+<footer class="map-footer"><p>Sources: <a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php">USGS</a> · <a href="https://wheretheiss.at/w/developer">Where the ISS at?</a> · <a href="https://open-meteo.com/">Open-Meteo</a><br>Weather locations are configured public coordinates; these are modelled current conditions, not visitor tracking. Earthquake records can be revised. No orbit is predicted.</p><a href="../index.html">Return to SIGNALS →</a></footer>
+<noscript><p>JavaScript is required to load the geographic map and public feeds. Source and navigation links remain available.</p></noscript>
+</main></body></html>
