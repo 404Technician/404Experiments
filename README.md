@@ -1,14 +1,27 @@
 # 404Experiments
 
-404Experiments is an off-grid field archive for small experiments, hidden projects, strange tools, and systems still taking shape. The 404 identity points toward what is missing, unknown, or waiting to be found.
+404Experiments is an evolving environment for things tested, built, explored, and not supposed to exist yet. The 404 identity points to the unknown, the missing, and the routes beyond the expected path.
 
 Live site: https://404technician.github.io/404Experiments/
 
-## Archive
+## Site Structure
 
-The homepage is the entry point to the archive. Its Experimental Tools section links to ten standalone experiments, each with its own entry page and behavior. The APIs and Future Experiments sections currently lead to themed placeholders and can expand as new projects arrive.
+- **Home** (`index.html`) is the cinematic entry point, with selected experiments and an API signal.
+- **Experiments** (`experiments/`) contains the complete catalog of ten interactive tools. Their original folder URLs remain unchanged.
+- **APIs** (`apis/`) contains experiments that read public services. New API experiments can be added as numbered folders.
+- **Future experiments** (`future-experiments/`) marks space for categories that may appear later.
 
-The pages use the shared root `site.css` stylesheet for the site identity, navigation, and responsive layout. Individual experiments keep their own stylesheets and scripts where needed.
+All sections share the root `site.css` theme and the same Home / Experiments / APIs navigation. Individual tools retain their existing behavior and local styling where needed.
+
+## API Experiment: GitHub
+
+The first API file is [`apis/01-github/`](apis/01-github/). It reads public profile, repository, and latest-commit data from the GitHub REST API:
+
+- `GET /users/404Technician`
+- `GET /repos/404Technician/404Experiments`
+- `GET /repos/404Technician/404Experiments/commits?per_page=1`
+
+Requests are unauthenticated and use no API key or token. GitHub rate-limits unauthenticated requests; the interface reports rate-limit, network, and missing-resource errors without exposing credentials.
 
 ## Experiments
 
@@ -23,6 +36,6 @@ The pages use the shared root `site.css` stylesheet for the site identity, navig
 9. Signal Diagnostics
 10. PID Tuning Sandbox
 
-## Goal
+## Extending the Archive
 
-Build small things, experiment freely, and gradually work toward larger projects.
+Add new tools under `experiments/` or new API interfaces as numbered folders under `apis/`. Other categories can be introduced as the archive grows.

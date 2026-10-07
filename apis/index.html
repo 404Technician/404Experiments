@@ -3,25 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The API archive is still taking shape.">
+    <meta name="description" content="Public systems observed through the 404Experiments API archive.">
     <title>APIs | 404Experiments</title>
     <link rel="stylesheet" href="../site.css">
 </head>
-<body class="placeholder-page">
+<body class="home-page overview-page">
     <nav class="site-nav" aria-label="Site navigation">
-        <a class="site-brand" href="../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span><span>Experiments</span></a>
+        <a class="site-brand" href="../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
         <div class="site-nav-links">
-            <a class="nav-index" href="../index.html#experiments">Main menu</a>
-            <a href="index.html">APIs</a>
-            <a href="../future-experiments/index.html">Future experiments</a>
+            <a href="../index.html">Home</a>
+            <a href="../experiments/index.html">Experiments</a>
+            <a class="nav-index" href="index.html">APIs</a>
         </div>
     </nav>
-    <main>
-        <p class="placeholder-code" aria-hidden="true">404</p>
-        <p class="eyebrow">Archive // Unmapped system</p>
-        <h1>APIs are not here yet.</h1>
-        <p>The endpoint map is blank. When the first systems surface, their signals will be recorded here.</p>
-        <a class="text-link" href="../index.html#experiments">Return to the archive <span aria-hidden="true">→</span></a>
+    <main class="archive-main">
+        <header class="overview-intro">
+            <p class="section-index">External signals // 01 file</p>
+            <h1>APIs</h1>
+            <p>Public systems, observed through their own signals. No credentials, no private endpoints.</p>
+        </header>
+        <section aria-labelledby="apiArchiveHeading">
+            <h2 class="visually-hidden" id="apiArchiveHeading">API experiments</h2>
+            <div class="experiment-grid api-archive-grid">
+                <article class="experiment-card api-archive-card">
+                    <span class="experiment-number">01</span>
+                    <h3>GitHub API</h3>
+                    <p>A live reading of the 404Technician profile and 404Experiments repository.</p>
+                    <a class="open-experiment" href="01-github/index.html">Open API experiment <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+        </section>
+        <footer class="home-footer"><span>404Experiments // API archive</span><a href="../index.html">Return home <span aria-hidden="true">↗</span></a></footer>
     </main>
 </body>
 </html>
