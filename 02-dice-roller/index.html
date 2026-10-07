@@ -7,16 +7,18 @@
     <link rel="stylesheet" href="../site.css">
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <nav class="site-nav" aria-label="Site navigation">
         <a class="site-brand" href="../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
         <div class="site-nav-links">
-            <a href="../index.html" aria-label="NEXUS / Home" title="Home">NEXUS</a>
-            <a class="nav-index" href="../experiments/index.html" aria-label="LAB / Experiments" title="Experiments">LAB</a>
-            <a href="../apis/index.html" aria-label="SIGNALS / APIs" title="APIs">SIGNALS</a>
+            <a href="../index.html"><span>NEXUS</span><span class="nav-meaning">Home</span></a>
+            <a class="nav-index" aria-current="location" href="../experiments/index.html"><span>LAB</span><span class="nav-meaning">Experiments</span></a>
+            <a href="../apis/index.html"><span>SIGNALS</span><span class="nav-meaning">Live data</span></a>
+            <a href="../archive/index.html"><span>ARCHIVE</span><span class="nav-meaning">Knowledge</span></a>
         </div>
     </nav>
 
-    <main>
+    <main id="main-content" tabindex="-1">
     <h1>Dice Roller</h1>
 
     <button onclick="rollDice()">

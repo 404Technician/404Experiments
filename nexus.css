@@ -118,3 +118,23 @@
     .nexus-page .site-nav { flex-direction: row; align-items: center; }
     .nexus-page .site-nav-links { justify-content: flex-end; }
 }
+/* Clear entry paths within the existing cinematic hero. */
+.nexus-copy { max-width: 520px; }
+.nexus-paths { align-items: stretch; gap: 20px 32px; }
+.nexus-paths a { align-items: start; padding-top: 12px; border-top: 1px solid var(--line); }
+.nexus-paths small { display: block; max-width: 170px; margin-top: 8px; color: var(--muted); font: 11px/1.6 var(--sans); text-transform: none; }
+.nexus-page .unknown-sector { padding-block: 64px; }
+.nexus-page .unknown-sector h2 { font-size: 24px; color: var(--muted); }
+.nexus-page .unmapped-symbol { font-size: 26px; }
+@media (max-width: 900px) { .nexus-coordinates { bottom: 200px; } }
+@media (max-width: 620px) {
+    .nexus-page .site-nav { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .nexus-page .site-nav-links { gap: 8px; }
+    .nexus-page .site-nav .site-nav-links a { font-size: 10px; }
+    .nexus-page .site-nav [aria-current="page"]::after { bottom: -5px; }
+    .nexus-hero { min-height: 840px; }
+    .nexus-paths { flex-direction: column; gap: 12px; }
+    .nexus-paths a { min-height: 58px; }
+    .nexus-paths small { max-width: none; }
+    .nexus-page .unknown-sector { gap: 26px; padding-block: 48px; }
+}

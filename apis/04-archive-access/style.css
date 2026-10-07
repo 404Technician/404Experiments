@@ -737,7 +737,7 @@ body.archive-access-page > main.archive-access-main {
     }
 
     .archive-search-button {
-        width: 100%;
+        width: calc(100% - 33px);
         margin-left: 33px;
     }
 

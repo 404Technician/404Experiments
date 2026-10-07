@@ -3,61 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Public systems observed through the 404Experiments API archive.">
-    <title>APIs | 404Experiments</title>
+    <meta name="description" content="SIGNALS follows live, changing data from GitHub, Open-Meteo, and Hacker News.">
+    <title>SIGNALS | 404Experiments</title>
     <link rel="stylesheet" href="../site.css">
 </head>
 <body class="home-page overview-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <nav class="site-nav" aria-label="Site navigation">
         <a class="site-brand" href="../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
         <div class="site-nav-links">
-            <a href="../index.html" aria-label="NEXUS / Home" title="Home">NEXUS</a>
-            <a href="../experiments/index.html" aria-label="LAB / Experiments" title="Experiments">LAB</a>
-            <a class="nav-index" href="index.html" aria-label="SIGNALS / APIs" title="APIs">SIGNALS</a>
+            <a href="../index.html"><span>NEXUS</span><span class="nav-meaning">Home</span></a>
+            <a href="../experiments/index.html"><span>LAB</span><span class="nav-meaning">Experiments</span></a>
+            <a class="nav-index" aria-current="page" href="index.html"><span>SIGNALS</span><span class="nav-meaning">Live data</span></a>
+            <a href="../archive/index.html"><span>ARCHIVE</span><span class="nav-meaning">Knowledge</span></a>
         </div>
     </nav>
-    <main class="archive-main">
+    <main class="archive-main" id="main-content" tabindex="-1">
         <header class="overview-intro">
-            <p class="section-index">External signals // 05 files</p>
-            <h1>APIs</h1>
-            <p>Public systems, observed through their own signals. No credentials, no private endpoints.</p>
+            <p class="section-index">External signals // 03 sources</p>
+            <h1>SIGNALS</h1>
+            <p class="overview-meaning">Live external sources</p>
+            <p>Live, changing data from systems beyond 404Experiments. Follow repositories, weather, and the flow of public ideas.</p>
         </header>
         <section aria-labelledby="apiArchiveHeading">
-            <h2 class="visually-hidden" id="apiArchiveHeading">API experiments</h2>
+            <h2 class="visually-hidden" id="apiArchiveHeading">Live external sources</h2>
             <div class="experiment-grid api-archive-grid">
                 <article class="experiment-card api-archive-card">
                     <span class="experiment-number">01</span>
-                    <h3>GitHub API</h3>
+                    <h3>GitHub</h3>
                     <p>A live reading of the 404Technician profile and 404Experiments repository.</p>
-                    <a class="open-experiment" href="01-github/index.html">Open API experiment <span aria-hidden="true">→</span></a>
+                    <a class="open-experiment" href="01-github/index.html">Open signal <span aria-hidden="true">→</span></a>
                 </article>
                 <article class="experiment-card api-archive-card">
                     <span class="experiment-number">02</span>
                     <h3>Weather / Open-Meteo</h3>
                     <p>Fourteen days of changing conditions over Best, North Brabant.</p>
-                    <a class="open-experiment" href="02-weather/index.html">Open API experiment <span aria-hidden="true">→</span></a>
+                    <a class="open-experiment" href="02-weather/index.html">Open signal <span aria-hidden="true">→</span></a>
                 </article>
                 <article class="experiment-card api-archive-card">
                     <span class="experiment-number">03</span>
                     <h3>Hacker News</h3>
                     <p>A near real-time signal from the public Hacker News feeds.</p>
-                    <a class="open-experiment" href="03-hacker-news/index.html">Open API experiment <span aria-hidden="true">→</span></a>
-                </article>
-                <article class="experiment-card api-archive-card">
-                    <span class="experiment-number">04</span>
-                    <h3>Archive Access</h3>
-                    <p>Build a live dossier from Wikipedia and Wikimedia records.</p>
-                    <a class="open-experiment" href="04-archive-access/index.html">Open API experiment <span aria-hidden="true">→</span></a>
-                </article>
-                <article class="experiment-card api-archive-card">
-                    <span class="experiment-number">05</span>
-                    <h3>Restricted Archive</h3>
-                    <p>Search books, authors, ISBNs, and technical records from the Open Library archive.</p>
-                    <a class="open-experiment" href="05-restricted-archive/index.html">Open API experiment <span aria-hidden="true">→</span></a>
+                    <a class="open-experiment" href="03-hacker-news/index.html">Open signal <span aria-hidden="true">→</span></a>
                 </article>
             </div>
         </section>
-        <footer class="home-footer"><span>404Experiments // API archive</span><a href="../index.html">Return home <span aria-hidden="true">↗</span></a></footer>
+        <footer class="home-footer"><span>404Experiments // SIGNALS</span><a href="../index.html">Return to NEXUS <span aria-hidden="true">↗</span></a></footer>
     </main>
 </body>
 </html>

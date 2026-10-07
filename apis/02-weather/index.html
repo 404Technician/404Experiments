@@ -10,19 +10,21 @@
     <script src="script.js" defer></script>
 </head>
 <body class="weather-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <nav class="site-nav" aria-label="Site navigation">
         <a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
         <div class="site-nav-links">
-            <a href="../../index.html" aria-label="NEXUS / Home" title="Home">NEXUS</a>
-            <a href="../../experiments/index.html" aria-label="LAB / Experiments" title="Experiments">LAB</a>
-            <a class="nav-index" href="../index.html" aria-label="SIGNALS / APIs" title="APIs">SIGNALS</a>
+            <a href="../../index.html"><span>NEXUS</span><span class="nav-meaning">Home</span></a>
+            <a href="../../experiments/index.html"><span>LAB</span><span class="nav-meaning">Experiments</span></a>
+            <a class="nav-index" aria-current="location" href="../index.html"><span>SIGNALS</span><span class="nav-meaning">Live data</span></a>
+            <a href="../../archive/index.html"><span>ARCHIVE</span><span class="nav-meaning">Knowledge</span></a>
         </div>
     </nav>
 
-    <main class="weather-main">
+    <main class="weather-main" id="main-content" tabindex="-1">
         <header class="weather-header">
             <div>
-                <p class="section-index">API EXPERIMENT // 02</p>
+                <p class="section-index">SIGNALS // 02</p>
                 <h1>BEST <span>/ NL</span></h1>
                 <p class="weather-subtitle"><span>North Brabant, Netherlands</span><span class="weather-feed-label"><span class="weather-separator" aria-hidden="true">·</span> Open-Meteo live feed</span></p>
             </div>
