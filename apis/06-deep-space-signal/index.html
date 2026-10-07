@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Receive NASA astronomical imagery, near-Earth object tracks, and searchable deep-space records through one 404 observation station.">
+    <title>DEEP SPACE SIGNAL | 404Experiments</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="deep-space-page">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <nav class="site-nav" aria-label="Site navigation">
+        <a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
+        <div class="site-nav-links">
+            <a href="../../index.html"><span>NEXUS</span><span class="nav-meaning">Home</span></a>
+            <a href="../../experiments/index.html"><span>LAB</span><span class="nav-meaning">Experiments</span></a>
+            <a class="nav-index" aria-current="location" href="../index.html"><span>SIGNALS</span><span class="nav-meaning">Live data</span></a>
+            <a href="../../archive/index.html"><span>ARCHIVE</span><span class="nav-meaning">Knowledge</span></a>
+        </div>
+    </nav>
+    <main class="space-main" id="main-content" tabindex="-1">
+        <header class="station-header">
+            <p class="section-index">SIGNALS / 06 <span aria-hidden="true">—</span> NASA / External observation network</p>
+            <h1>DEEP SPACE<br><span>SIGNAL</span></h1>
+            <div class="station-intro"><p>Light from elsewhere.<br>Images, passing objects, and the records they leave behind.</p><a class="text-link" href="#object-tracking">Follow the tracks <span aria-hidden="true">↓</span></a></div>
+        </header>
+        <noscript><p class="space-notice">JavaScript is needed to receive these feeds. Explore the sources directly at <a href="https://science.nasa.gov/apod/">NASA APOD</a>, <a href="https://api.nasa.gov/">NASA APIs</a>, and the <a href="https://images.nasa.gov/">NASA Image Library</a>.</p></noscript>
+        <section class="space-sector transmission-sector" aria-labelledby="transmission-heading">
+            <div class="space-section-head"><div><p class="section-index">01 / Daily transmission</p><h2 id="transmission-heading">CURRENT TRANSMISSION</h2></div><p class="source-tag">SOURCE / NASA APOD</p></div>
+            <div class="transmission-controls" aria-label="Transmission history">
+                <button id="previous-transmission" type="button">← Previous day</button>
+                <span id="transmission-date" class="source-tag">Today / UTC</span>
+                <button id="next-transmission" type="button" disabled>Next day →</button>
+                <button id="current-transmission" type="button">Today</button>
+            </div>
+            <div class="feed-state"><p id="apod-status" role="status" aria-live="polite">Connecting to NASA</p><button id="apod-retry" type="button" hidden>Retry transmission</button></div>
+            <div id="apod-content" aria-busy="true"><div class="transmission-placeholder"><span class="source-tag">Acquiring transmission</span><span class="empty-orbit" aria-hidden="true"></span></div></div>
+        </section>
+        <section class="space-sector" id="object-tracking" aria-labelledby="objects-heading">
+            <div class="space-section-head"><div><p class="section-index">02 / Near-Earth objects</p><h2 id="objects-heading">LOCAL SPACE TRACKING</h2></div><p class="source-tag">SOURCE / NASA JPL · NeoWs</p></div>
+            <p class="sector-copy">Close approaches for <span id="objects-date">today</span> (UTC). Distances are measured from the orbiting body. “Potentially hazardous” is NASA’s classification, not an impact prediction.</p>
+            <div class="feed-state"><p id="neo-status" role="status" aria-live="polite">Resolving object tracks</p><button id="neo-retry" type="button" hidden>Retry object tracks</button></div>
+            <div id="neo-content" aria-busy="true"></div>
+            <p class="source-footnote">Public DEMO_KEY feed. Shared NASA limits may temporarily interrupt reception.</p>
+        </section>
+        <section class="space-sector library-sector" aria-labelledby="library-heading">
+            <div class="space-section-head"><div><p class="section-index">03 / Deep space archive</p><h2 id="library-heading">SEARCH THE DISTANCE</h2></div><p class="source-tag">SOURCE / NASA Image &amp; Video Library</p></div>
+            <form id="archive-search" class="space-search">
+                <label for="archive-query">Subject / mission / celestial object</label>
+                <div><input id="archive-query" name="q" type="search" placeholder="Jupiter, nebula, Apollo…" maxlength="120" required><button type="submit">Query archive <span aria-hidden="true">↗</span></button></div>
+            </form>
+            <div class="query-suggestions" aria-label="Suggested archive subjects"><button type="button" data-query="Jupiter">Jupiter</button><button type="button" data-query="nebula">Nebula</button><button type="button" data-query="Apollo">Apollo</button><button type="button" data-query="James Webb">James Webb</button></div>
+            <div class="feed-state"><p id="library-status" role="status" aria-live="polite">Enter a subject to query NASA’s image records.</p><button id="library-retry" type="button" hidden>Retry archive query</button></div>
+            <div id="library-results" class="library-results" aria-busy="false"></div>
+        </section>
+        <footer class="home-footer"><span>404Experiments / Deep Space Signal</span><a href="../index.html">Return to SIGNALS <span aria-hidden="true">↗</span></a></footer>
+    </main>
+    <dialog id="record-dialog" aria-labelledby="detail-title">
+        <div class="detail-topline"><span class="source-tag">NASA / Recovered observation</span><button id="close-detail" type="button" aria-label="Close observation detail">Close ×</button></div>
+        <h2 id="detail-title">Observation detail</h2>
+        <div class="feed-state"><p id="detail-status" role="status" aria-live="polite"></p><button id="detail-retry" type="button" hidden>Retry media details</button></div>
+        <div id="detail-content" aria-busy="false"></div>
+    </dialog>
+</body>
+</html>
