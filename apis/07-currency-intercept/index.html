@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Global currency reference rates and Dutch national fuel-price observations.">
+<title>CURRENCY INTERCEPT | 404Experiments</title>
+<link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
+</head>
+<body class="currency-page">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<nav class="site-nav" aria-label="Site navigation">
+<a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
+<div class="site-nav-links">
+<a href="../../index.html"><span>NEXUS</span><span class="nav-meaning">Home</span></a>
+<a href="../../experiments/index.html"><span>LAB</span><span class="nav-meaning">Experiments</span></a>
+<a class="nav-index" aria-current="location" href="../index.html"><span>SIGNALS</span><span class="nav-meaning">Live data</span></a>
+<a href="../../archive/index.html"><span>ARCHIVE</span><span class="nav-meaning">Knowledge</span></a>
+</div></nav>
+<main class="currency-main" id="main-content" tabindex="-1">
+<header class="intercept-header"><p class="eyebrow">SIGNALS / 07 <span>GLOBAL FINANCIAL SIGNALS</span></p>
+<h1>CURRENCY<br><span>INTERCEPT</span></h1>
+<div class="header-bottom"><p>Across borders. At the pump.<br>Two economic signals, observed on their own clocks.</p><span class="coordinates">REFERENCE RATES / NATIONAL AVERAGES<br>OBSERVATION + COMPARISON</span></div>
+<div class="orbit" aria-hidden="true"></div></header>
+<section class="sector" aria-labelledby="exchange-heading">
+<div class="section-head"><div><p class="eyebrow">01 / CROSS-BORDER SIGNAL</p><h2 id="exchange-heading">GLOBAL EXCHANGE</h2></div><span class="source-label">FRANKFURTER / V2</span></div>
+<div class="state-row"><p id="exchange-status" role="status">Receiving currency metadata…</p><button id="exchange-retry" type="button">Retry exchange</button></div>
+<div class="converter">
+<label>Amount<input id="amount" type="number" min="0" step="any" value="100" inputmode="decimal"></label>
+<label>Base currency<select id="base" disabled><option>Loading…</option></select></label>
+<button id="swap" type="button" aria-label="Swap base and quote currencies" disabled>⇄</button>
+<label>Quote currency<select id="quote" disabled><option>Loading…</option></select></label>
+</div>
+<div class="conversion"><p class="eyebrow">CONVERTED REFERENCE VALUE</p><output id="result" for="amount base quote">—</output><p id="rate-detail">Awaiting a daily reference rate.</p></div>
+<div id="pair-strip" class="pair-strip" aria-label="Curated euro exchange signals"></div>
+<p class="data-note">Daily reference rates, not real-time trading quotes. Latest available dates can reflect business-day publication timing.</p>
+</section>
+<section class="sector" aria-labelledby="trace-heading">
+<div class="section-head"><div><p class="eyebrow">02 / SIGNAL DRIFT</p><h2 id="trace-heading">RATE TRACE</h2></div><div class="periods" id="rate-periods" role="group" aria-label="Rate trace window"></div></div>
+<div class="state-row"><p id="trace-status" role="status">Awaiting currency selection.</p><button id="trace-retry" type="button">Retry trace</button></div>
+<div id="rate-chart" class="chart"></div><div id="rate-metrics" class="metrics"></div>
+</section>
+<section class="sector fuel-sector" aria-labelledby="fuel-heading">
+<div class="section-head"><div><p class="eyebrow">03 / DOMESTIC PRESSURE</p><h2 id="fuel-heading">DUTCH FUEL SIGNAL</h2></div><span class="source-label">DAILY VALUES / PUBLISHED WEEKLY</span></div>
+<div class="state-row"><p id="fuel-status" role="status">Receiving national averages…</p><button id="fuel-retry" type="button">Retry fuel</button></div>
+<div id="fuel-current" class="fuel-current"></div><p id="fuel-dates" class="data-note"></p>
+<div class="section-head fuel-controls"><div id="fuel-toggles" class="toggles" role="group" aria-label="Fuel chart series"></div><div id="fuel-periods" class="periods" role="group" aria-label="Fuel trace window"></div></div>
+<div class="state-row"><p id="fuel-trace-status" role="status">Receiving fuel history…</p><button id="fuel-trace-retry" type="button">Retry fuel trace</button></div>
+<div id="fuel-chart" class="chart"></div><div id="fuel-metrics" class="fuel-metrics"></div>
+<p class="data-note">National weighted average · €/L · VAT and excise included · CBS / Travelcard BV</p>
+</section>
+<details class="source-notes"><summary>Source notes / two separate clocks</summary><p>Frankfurter combines daily exchange-rate data from central banks and official sources. Conversion and window changes are calculated here; these are observations for comparison.</p><p>CBS dataset 80416ned publishes nationally weighted daily fuel averages in weekly batches, normally on Thursday for observations through Monday. Figures are definitive, available from 1 January 2006, and supplied by Travelcard BV. Observation dates differ from dataset update dates. No station-specific prices or causal relationship between these two signals is implied.</p><p><a href="https://frankfurter.dev/">Frankfurter documentation ↗</a> · <a href="https://opendata.cbs.nl/#/CBS/nl/dataset/80416ned/table">CBS dataset ↗</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0 ↗</a></p></details>
+<footer class="home-footer"><span>404 / CURRENCY INTERCEPT</span><a href="../index.html">Return to SIGNALS ↗</a></footer>
+</main></body></html>
