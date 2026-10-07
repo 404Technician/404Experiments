@@ -141,3 +141,52 @@ SVG, no imagery, exactly six initial data requests, stable arrival layout and
 1440/768/375px widths without horizontal overflow. Screenshots are written to
 the OS temporary directory. The separate live mode verifies actual responses
 from all six sources. Production includes no test fixtures or fallback numbers.
+
+## Global Signal Map
+
+[GLOBAL SIGNAL MAP](apis/global-signal-map/index.html) plots recent USGS M2.5+
+earthquakes, the International Space Station position, and current weather for
+Best (Netherlands), New York, São Paulo, Cape Town, Tokyo and Sydney on a real
+interactive world map. It is entirely client-side, using pinned Leaflet 1.9.4
+with verified CDN integrity hashes and OpenStreetMap tiles; no build step,
+backend, private credentials or visitor geolocation is involved.
+
+Public data endpoints:
+- USGS: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson
+- ISS: https://api.wheretheiss.at/v1/satellites/25544
+- Open-Meteo: https://api.open-meteo.com/v1/forecast with comma-separated latitude
+  and longitude lists, current=temperature_2m,wind_speed_10m and timezone=UTC.
+- Tiles: https://tile.openstreetmap.org/{z}/{x}/{y}.png with visible OSM attribution.
+
+Initial load and a full manual refresh use **three data requests**: one earthquake
+feed, one ISS position, and one six-location weather batch. Tile requests vary
+with viewport, pan and zoom; Leaflet also downloads its pinned JS/CSS. ISS polls
+every 20 seconds after completion, earthquakes every five minutes, weather every
+ten minutes. Hidden documents and disabled layers pause automatic polling;
+in-flight work is shared so refreshes cannot overlap duplicate feed requests.
+Requests time out after 12 seconds. LAST SYNC means full refresh completion;
+each popup retains the source observation time. Failed feeds clear only their
+own markers. Layers and controls stay usable when another feed or tiles fail.
+
+Only real coordinates and valid source values are plotted. Up to 180 largest
+recent earthquakes are shown if a feed is unusually large; omitted records are
+reported. Weather points represent fixed public locations with modelled current
+conditions, not instrumented stations or visitor positions. The ISS marker
+moves only when a new source position arrives; no orbit is extrapolated.
+An accessible text view remains available even if the Leaflet CDN is unavailable.
+
+All services are public, unauthenticated and subject to external availability
+and rate limits. The ISS endpoint was verified for HTTPS, browser CORS and its
+current latitude/longitude/timestamp response. OSM tiles use normal browser
+caching and visible attribution, with no bulk download or prefetch feature.
+Source and tile attribution remain visible. NEXUS and existing experiments are
+not modified.
+
+Browser coverage: node apis/global-signal-map/tests/browser.cjs (controlled
+fixtures with genuine verified Leaflet assets) and the same command with --live
+for the real CDN, world tiles and APIs. Set NODE_PATH to an external Playwright
+installation if needed. Tests cover all three layers, popup values, keyboard
+markers, toggles, manual refresh protection, source isolation, missing/partial
+data, JSON/network/HTTP/timeout errors, ISS updates, hidden-page pause, CDN
+failure, world/drag/zoom controls, 1440/768/390px layouts and relative routes
+served under /404Experiments/. Test fixtures never ship as production data.
