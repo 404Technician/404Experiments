@@ -33,6 +33,10 @@ The browser makes unauthenticated requests; no API credentials are stored. Forec
 
 [`apis/03-hacker-news/`](apis/03-hacker-news/) reads the official Hacker News Firebase API in near real time. It requests one selected feed of story IDs, resolves at most 20 item records, and supports Top, New, Best, Ask HN, Show HN, and Jobs. Requests are public and unauthenticated; unavailable or deleted items are skipped, and links open external stories or Hacker News discussions safely.
 
+## API Experiment: Archive Access
+
+[`apis/04-archive-access/`](apis/04-archive-access/) resolves English Wikipedia searches into a dossier with a plain-text extract, lead image, related article links, metadata, and optional Wikimedia visual material. It uses the public MediaWiki Action API without credentials; optional related and image requests do not block the primary article.
+
 ## Experiments
 
 1. Random Number Generator

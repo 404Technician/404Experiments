@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Assemble a live knowledge dossier from public Wikipedia and Wikimedia records.">
+    <title>Archive Access | 404Experiments</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="archive-access-page">
+    <nav class="site-nav" aria-label="Site navigation">
+        <a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
+        <div class="site-nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../experiments/index.html">Experiments</a>
+            <a class="nav-index" href="../index.html">APIs</a>
+        </div>
+    </nav>
+
+    <main class="archive-access-main">
+        <header class="archive-access-header">
+            <div>
+                <p class="section-index">API EXPERIMENT // 04</p>
+                <h1>ARCHIVE ACCESS</h1>
+                <p class="archive-subtitle">RECONSTRUCTED KNOWLEDGE DOSSIER <span aria-hidden="true">//</span> WIKIMEDIA EN</p>
+            </div>
+            <p class="archive-live" id="archiveStatus" data-state="idle" role="status" aria-live="polite"><span aria-hidden="true"></span><span id="archiveStatusText">ARCHIVE STANDBY</span></p>
+        </header>
+
+        <section class="archive-search-panel" aria-label="Search the archive">
+            <form id="archiveSearchForm" class="archive-search-form">
+                <label for="archiveQuery">SUBJECT / RECORD NAME</label>
+                <div class="archive-search-line">
+                    <span class="query-mark" aria-hidden="true">?</span>
+                    <input id="archiveQuery" name="q" type="search" placeholder="Enter a subject..." autocomplete="off" required>
+                    <button class="archive-search-button" id="searchButton" type="submit">Assemble dossier <span aria-hidden="true">→</span></button>
+                </div>
+            </form>
+            <div class="search-samples" aria-label="Sample subjects">
+                <span>TRY</span>
+                <button type="button" data-query="Nikola Tesla">Nikola Tesla</button>
+                <button type="button" data-query="Roman Empire">Roman Empire</button>
+                <button type="button" data-query="Black hole">Black hole</button>
+                <button type="button" data-query="Antikythera mechanism">Antikythera mechanism</button>
+                <button type="button" data-query="Best Netherlands">Best, Netherlands</button>
+            </div>
+        </section>
+
+        <section class="archive-progress" id="archiveProgress" aria-live="polite" hidden>
+            <span class="progress-light" aria-hidden="true"></span>
+            <span id="archiveProgressText">QUERYING ARCHIVE</span>
+        </section>
+
+        <section class="archive-error" id="archiveError" role="alert" hidden>
+            <p id="archiveErrorText"></p>
+            <button id="retrySearch" type="button">Retry request</button>
+        </section>
+
+        <section class="possible-records" id="possibleRecords" aria-labelledby="possibleRecordsTitle" hidden>
+            <div class="section-label-row">
+                <p class="section-index">MATCH RESONANCE</p>
+                <span>CHOOSE A RECORD</span>
+            </div>
+            <h2 class="visually-hidden" id="possibleRecordsTitle">Possible records</h2>
+            <div class="record-options" id="recordOptions"></div>
+        </section>
+
+        <nav class="archive-trail" id="archiveTrail" aria-label="Archive trail" hidden>
+            <span>ARCHIVE TRAIL</span>
+            <div id="archiveTrailItems"></div>
+            <button id="backDossier" type="button" disabled>← Previous dossier</button>
+        </nav>
+
+        <article class="dossier" id="dossier" aria-labelledby="dossierTitle" hidden>
+            <header class="dossier-header">
+                <div class="dossier-image-wrap" id="primaryImageWrap">
+                    <img id="primaryImage" alt="" loading="lazy" hidden>
+                    <div class="image-placeholder" id="primaryImagePlaceholder">
+                        <span aria-hidden="true">404</span>
+                        <small>NO LEAD IMAGE RECOVERED</small>
+                    </div>
+                    <span class="image-frame-label">LEAD IMAGE // WIKIMEDIA</span>
+                </div>
+                <div class="dossier-identity">
+                    <div class="dossier-index-row">
+                        <p class="section-index">ARCHIVE RECORD</p>
+                        <span class="record-id" id="recordId">A-0000</span>
+                    </div>
+                    <h2 id="dossierTitle">Subject</h2>
+                    <p class="dossier-description" id="dossierDescription"></p>
+                    <p class="source-line"><span class="source-indicator" aria-hidden="true"></span> SOURCE // WIKIMEDIA EN <span class="source-divider">·</span> <span id="sourceState">RECONSTRUCTED</span></p>
+                    <a class="canonical-link external-record-link" id="canonicalLink" href="#" target="_blank" rel="noopener noreferrer">Open source record ↗</a>
+                </div>
+            </header>
+
+            <section class="dossier-summary" aria-labelledby="summaryHeading">
+                <div class="section-label-row">
+                    <p class="section-index">PRIMARY RECORD</p>
+                    <span>SUMMARY / ENGLISH</span>
+                </div>
+                <h3 id="summaryHeading" class="visually-hidden">Known information</h3>
+                <p id="summaryText">No introductory extract was available for this record.</p>
+            </section>
+
+            <section class="related-section" aria-labelledby="relatedHeading">
+                <div class="section-label-row">
+                    <p class="section-index">RELATED RECORDS</p>
+                    <span id="relatedCount">0 LINKS RESOLVED</span>
+                </div>
+                <h3 class="visually-hidden" id="relatedHeading">Related subjects</h3>
+                <div class="related-grid" id="relatedRecords">
+                    <p class="section-empty">Related records have not been assembled.</p>
+                </div>
+            </section>
+
+            <section class="visual-archive-section" aria-labelledby="visualHeading">
+                <div class="section-label-row">
+                    <p class="section-index">VISUAL ARCHIVE</p>
+                    <span id="visualCount">0 FRAGMENTS</span>
+                </div>
+                <h3 class="visually-hidden" id="visualHeading">Related visual material</h3>
+                <div class="visual-grid" id="visualArchive">
+                    <p class="section-empty">No additional visual fragments were recovered.</p>
+                </div>
+            </section>
+
+            <section class="dossier-footer-grid">
+                <div class="metadata-panel" aria-labelledby="metadataHeading">
+                    <p class="section-index" id="metadataHeading">DOSSIER METADATA</p>
+                    <dl>
+                        <div><dt>Source language</dt><dd>English / EN</dd></div>
+                        <div><dt>Page ID</dt><dd id="pageId">—</dd></div>
+                        <div><dt>Last retrieved</dt><dd id="retrievedAt">—</dd></div>
+                        <div><dt>Related records</dt><dd id="metadataRelatedCount">—</dd></div>
+                    </dl>
+                    <a id="metadataCanonical" href="#" target="_blank" rel="noopener noreferrer">Canonical record ↗</a>
+                </div>
+                <div class="external-records" aria-labelledby="externalHeading">
+                    <p class="section-index" id="externalHeading">EXTERNAL RECORDS</p>
+                    <a id="externalWikipedia" href="#" target="_blank" rel="noopener noreferrer">Wikipedia article ↗</a>
+                    <a id="externalCommons" href="#" target="_blank" rel="noopener noreferrer">Search Wikimedia Commons ↗</a>
+                </div>
+            </section>
+        </article>
+
+        <footer class="archive-access-footnote">
+            <span>PUBLIC KNOWLEDGE // ENGLISH WIKIPEDIA</span>
+            <a href="README.md">API field notes <span aria-hidden="true">↗</span></a>
+        </footer>
+    </main>
+</body>
+</html>
