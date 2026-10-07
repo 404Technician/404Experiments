@@ -6,7 +6,7 @@ Live site: https://404technician.github.io/404Experiments/
 
 ## Site Structure
 
-- **Home** (`index.html`) is the cinematic entry point, with selected experiments and an API signal.
+- **Home** (`index.html`) is the cinematic entry point, with selected experiments and two API signals.
 - **Experiments** (`experiments/`) contains the complete catalog of ten interactive tools. Their original folder URLs remain unchanged.
 - **APIs** (`apis/`) contains experiments that read public services. New API experiments can be added as numbered folders.
 - **Future experiments** (`future-experiments/`) marks space for categories that may appear later.
@@ -22,6 +22,12 @@ The first API file is [`apis/01-github/`](apis/01-github/). It reads public prof
 - `GET /repos/404Technician/404Experiments/commits?per_page=1`
 
 Requests are unauthenticated and use no API key or token. GitHub rate-limits unauthenticated requests; the interface reports rate-limit, network, and missing-resource errors without exposing credentials.
+
+## API Experiment: Weather Signal
+
+[`apis/02-weather/`](apis/02-weather/) uses the public Open-Meteo Forecast API for a fixed location in Best, North Brabant, Netherlands (`51.51, 5.39`). It requests a 14-day forecast in the `Europe/Amsterdam` timezone and includes daily conditions, air and apparent temperatures, precipitation, wind, sunrise, and sunset.
+
+The browser makes unauthenticated requests; no API credentials are stored. Forecast data is live and can change between updates. The page reports API, network, and incomplete-data states.
 
 ## Experiments
 

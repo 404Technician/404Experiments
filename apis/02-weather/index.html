@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A live fourteen-day Open-Meteo forecast for Best, North Brabant, Netherlands.">
+    <title>Weather Signal | 404Experiments</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="weather-page">
+    <nav class="site-nav" aria-label="Site navigation">
+        <a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
+        <div class="site-nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../experiments/index.html">Experiments</a>
+            <a class="nav-index" href="../index.html">APIs</a>
+        </div>
+    </nav>
+
+    <main class="weather-main">
+        <header class="weather-header">
+            <div>
+                <p class="section-index">API EXPERIMENT // 02</p>
+                <h1>BEST <span>/ NL</span></h1>
+                <p class="weather-subtitle"><span>North Brabant, Netherlands</span><span class="weather-feed-label"><span class="weather-separator" aria-hidden="true">·</span> Open-Meteo live feed</span></p>
+            </div>
+            <div class="weather-header-tools">
+                <p class="weather-status" id="weatherStatus" data-state="loading" role="status" aria-live="polite"><span aria-hidden="true"></span>Locating forecast signal</p>
+                <button class="weather-refresh" id="refreshWeather" type="button" aria-label="Refresh forecast">Refresh <span aria-hidden="true">↻</span></button>
+            </div>
+        </header>
+
+        <p class="weather-error" id="weatherError" role="status" aria-live="polite" hidden></p>
+
+        <section class="forecast-section" aria-labelledby="forecastTitle">
+            <div class="weather-section-heading">
+                <div>
+                    <p class="section-index">LOCAL OUTLOOK // 14 DAYS</p>
+                    <h2 id="forecastTitle">Forecast sequence</h2>
+                </div>
+                <p class="forecast-unit-note">Daily high / low <span aria-hidden="true">·</span> °C</p>
+            </div>
+            <div class="forecast-grid" id="forecastGrid" aria-busy="true" aria-label="Fourteen day forecast">
+                <p class="forecast-placeholder">Receiving forecast data from Best...</p>
+            </div>
+        </section>
+
+        <section class="weather-detail" id="selectedDayDetail" aria-labelledby="detailTitle" aria-live="polite">
+            <div class="detail-title-block">
+                <p class="section-index">SELECTED DAY // DETAIL</p>
+                <h2 id="detailTitle">Waiting for forecast</h2>
+                <p class="detail-condition" id="detailCondition">Conditions will appear here.</p>
+            </div>
+            <dl class="detail-grid">
+                <div><dt>Feels like</dt><dd id="detailFeels">—</dd></div>
+                <div><dt>Precipitation</dt><dd id="detailPrecipitation">—</dd></div>
+                <div><dt>Wind / gusts</dt><dd id="detailWind">—</dd></div>
+                <div><dt>Sunrise</dt><dd id="detailSunrise">—</dd></div>
+                <div><dt>Sunset</dt><dd id="detailSunset">—</dd></div>
+            </dl>
+        </section>
+
+        <footer class="weather-footnote">
+            <span>Fixed coordinates // 51.51°N 5.39°E</span>
+            <span>Public forecast data // No credentials stored</span>
+        </footer>
+    </main>
+</body>
+</html>
