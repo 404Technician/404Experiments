@@ -3,113 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="404Experiments is a place for things tested, built, explored, and not supposed to exist yet.">
-    <title>404Experiments | Outside the Expected</title>
+    <meta name="description" content="NEXUS is the central junction of 404Experiments. Branch into experimental labs, live signals, recovered archives, and unmapped territory.">
+    <title>NEXUS | 404Experiments</title>
     <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="nexus.css">
 </head>
-<body class="home-page">
+<body class="home-page nexus-page">
+    <a class="skip-link" href="#nexus">Skip to NEXUS</a>
     <nav class="site-nav" aria-label="Site navigation">
-        <a class="site-brand" href="index.html" aria-label="404Experiments home">
-            <span class="brand-mark">404</span>
-        </a>
+        <a class="site-brand" href="index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
         <div class="site-nav-links">
-            <a class="nav-index" href="index.html" aria-label="NEXUS / Home" title="Home">NEXUS</a>
-            <a href="experiments/index.html" aria-label="LAB / Experiments" title="Experiments">LAB</a>
-            <a href="apis/index.html" aria-label="SIGNALS / APIs" title="APIs">SIGNALS</a>
+            <a class="nav-index" href="index.html" aria-current="page">NEXUS</a>
+            <a href="experiments/index.html">LAB</a>
+            <a href="apis/index.html">SIGNALS</a>
         </div>
     </nav>
-
-    <main class="home-main">
-        <header class="hero">
-            <div class="hero-content">
-                <p class="eyebrow">Field archive // No fixed coordinates</p>
-                <p class="hero-code" aria-hidden="true">404</p>
-                <h1 class="hero-title">404Experiments</h1>
-                <p class="hero-copy">Somewhere outside the expected path. A growing place for things tested, built, explored, and not supposed to exist yet.</p>
+    <main class="home-main" id="nexus">
+        <header class="nexus-hero">
+            <div class="junction" aria-hidden="true"><span></span></div>
+            <div class="nexus-intro">
+                <p class="section-index">No fixed coordinates / Central junction</p>
+                <p class="nexus-code" aria-hidden="true">404</p>
+                <h1><span class="visually-hidden">404 </span>NEXUS</h1>
+                <p class="nexus-copy">Every path branches from here.<br>Experiments, signals, recovered knowledge.<br>Beyond them, the map is still taking shape.</p>
                 <div class="hero-actions">
-                    <a class="primary-link" href="experiments/index.html">Explore experiments <span aria-hidden="true">↘</span></a>
-                    <a class="text-link" href="#signal">Follow the signal <span aria-hidden="true">→</span></a>
+                    <a class="primary-link" href="experiments/index.html">Enter LAB <span aria-hidden="true">↗</span></a>
+                    <a class="text-link" href="#signals">Trace the signals <span aria-hidden="true">↓</span></a>
                 </div>
             </div>
-            <p class="hero-status"><span aria-hidden="true"></span>Signal detected // Archive unstable</p>
+            <div class="nexus-coordinates" aria-hidden="true"><span>404 / N</span><span>Paths diverge.<br>The junction remains.</span></div>
+            <p class="nexus-baseline"><span>LAB / SIGNALS / ARCHIVES</span><span>Further coordinates unknown</span></p>
         </header>
-
-        <section class="home-section meaning-section concept-section" id="signal" aria-labelledby="conceptHeading">
-            <div class="meaning-mark" aria-hidden="true">?</div>
-            <div class="meaning-copy">
-                <p class="section-index">01 / Unfixed coordinates</p>
-                <h2 id="conceptHeading">A place for what is still becoming.</h2>
-                <p>404Experiments is an evolving field of tools, experiments, and unknowns. Some things are practical. Others are strange, unfinished, or only here because someone wondered what would happen.</p>
-            </div>
-        </section>
-
-        <section class="home-section" id="featured" aria-labelledby="featuredHeading">
-            <div class="section-title">
-                <div>
-                    <p class="section-index">02 / Selected files</p>
-                    <h2 id="featuredHeading">Featured experiments</h2>
+        <div class="nexus-sectors">
+            <section class="nexus-section labs-section" id="labs" aria-labelledby="labsHeading">
+                <div class="sector-heading"><div><p class="section-index">N-01 / Experimental systems</p><h2 id="labsHeading">ACTIVE LABS</h2></div><p>Small systems. Open possibilities.<br>Three paths into the workshop.</p></div>
+                <div class="lab-list">
+                    <a class="lab-entry" href="05-todo-app/index.html"><span class="node-id">05 / FIELD LOG</span><div><h3>To-do App</h3><p>Give unfinished business a place to land.</p></div><span class="entry-arrow" aria-hidden="true">↗</span></a>
+                    <a class="lab-entry" href="08-pt100-converter/index.html"><span class="node-id">08 / SENSOR STUDY</span><div><h3>PT100 Converter</h3><p>Trace resistance back to temperature.</p></div><span class="entry-arrow" aria-hidden="true">↗</span></a>
+                    <a class="lab-entry" href="10-pid-tuning-sandbox/index.html"><span class="node-id">10 / PROCESS MODEL</span><div><h3>PID Tuning Sandbox</h3><p>Adjust the controller. Observe the response.</p></div><span class="entry-arrow" aria-hidden="true">↗</span></a>
                 </div>
-                <p>A few things recovered from the edge. The full archive is elsewhere.</p>
-            </div>
-            <div class="experiment-grid">
-                <article class="experiment-card">
-                    <span class="experiment-number">05 // FIELD LOG</span>
-                    <h3>To-do App</h3>
-                    <p>Bring unfinished business into view. Sort it, date it, decide what survives.</p>
-                    <a class="open-experiment" href="05-todo-app/index.html">Open experiment <span aria-hidden="true">→</span></a>
-                </article>
-                <article class="experiment-card">
-                    <span class="experiment-number">08 // SENSOR STUDY</span>
-                    <h3>PT100 Converter</h3>
-                    <p>Trace resistance back to temperature through an industrial sensor model.</p>
-                    <a class="open-experiment" href="08-pt100-converter/index.html">Open experiment <span aria-hidden="true">→</span></a>
-                </article>
-                <article class="experiment-card">
-                    <span class="experiment-number">10 // PROCESS MODEL</span>
-                    <h3>PID Tuning Sandbox</h3>
-                    <p>Change the controller. Watch the process respond, overshoot, and settle.</p>
-                    <a class="open-experiment" href="10-pid-tuning-sandbox/index.html">Open experiment <span aria-hidden="true">→</span></a>
-                </article>
-            </div>
-            <a class="primary-link section-action" href="experiments/index.html">View all experiments <span aria-hidden="true">→</span></a>
-        </section>
-
-        <section class="home-section" id="api-teaser" aria-labelledby="apiHeading">
-            <div class="section-title">
-                <div>
-                    <p class="section-index">03 / External signal</p>
-                    <h2 id="apiHeading">The API channel is open.</h2>
+                <a class="text-link sector-action" href="experiments/index.html">View all LABS <span aria-hidden="true">→</span></a>
+            </section>
+            <section class="nexus-section signals-section" id="signals" aria-labelledby="signalsHeading">
+                <div class="sector-heading"><div><p class="section-index">N-02 / External transmissions</p><h2 id="signalsHeading">LIVE SIGNALS</h2></div><p>The world beyond this junction.<br>Public sources, changing readings.</p></div>
+                <p class="source-note">Live data is retrieved when you open a signal.</p>
+                <div class="signal-strip">
+                    <a class="signal-entry" href="apis/02-weather/index.html"><span class="signal-source"><i aria-hidden="true"></i>Open-Meteo / 02</span><h3>Weather</h3><p>Changing skies over Best, NL.</p><span class="signal-open">Read forecast <span aria-hidden="true">↗</span></span></a>
+                    <a class="signal-entry" href="apis/03-hacker-news/index.html"><span class="signal-source"><i aria-hidden="true"></i>Hacker News / 03</span><h3>Hacker News</h3><p>A stream of ideas from the outside.</p><span class="signal-open">Follow feed <span aria-hidden="true">↗</span></span></a>
+                    <a class="signal-entry" href="apis/01-github/index.html"><span class="signal-source"><i aria-hidden="true"></i>GitHub / 01</span><h3>GitHub</h3><p>The public traces of this environment.</p><span class="signal-open">Inspect source <span aria-hidden="true">↗</span></span></a>
                 </div>
-                <p>Public systems, observed from the edge. Two signals are now live.</p>
-            </div>
-            <div class="future-grid">
-                <a class="future-card api-teaser-card" href="apis/01-github/index.html">
-                    <span class="coming-label">API FILE // 01</span>
-                    <h3>GitHub API Experiment</h3>
-                    <p>Live public data from the people and repository behind this archive.</p>
-                </a>
-                <a class="future-card api-teaser-card" href="apis/02-weather/index.html">
-                    <span class="coming-label">API FILE // 02</span>
-                    <h3>Weather / Best, NL</h3>
-                    <p>A fourteen-day forecast from a fixed point in North Brabant.</p>
-                </a>
-            </div>
-            <a class="text-link section-action-link" href="apis/index.html">View APIs <span aria-hidden="true">→</span></a>
-        </section>
-
-        <section class="home-section unknown-section" aria-labelledby="unknownHeading">
-            <div class="unknown-mark" aria-hidden="true">404 / ?</div>
-            <div class="meaning-copy">
-                <p class="section-index">04 / Beyond the map</p>
-                <h2 id="unknownHeading">More will surface.</h2>
-                <p>New categories can take shape when they are ready. Until then, the coordinates remain blank.</p>
-            </div>
-        </section>
-
-        <footer class="home-footer">
-            <span>404Experiments // Field archive</span>
-            <a href="future-experiments/index.html">Unknown territory <span aria-hidden="true">↗</span></a>
-        </footer>
+                <a class="text-link sector-action" href="apis/index.html">Open SIGNALS <span aria-hidden="true">→</span></a>
+            </section>
+            <section class="nexus-section archives-section" id="archives" aria-labelledby="archivesHeading">
+                <div class="sector-heading"><div><p class="section-index">N-03 / Indexed fragments</p><h2 id="archivesHeading">ARCHIVE NODES</h2></div><p>Some paths lead deeper.<br>Records to recover. Knowledge to revisit.</p></div>
+                <div class="archive-records">
+                    <a class="archive-record" href="apis/04-archive-access/index.html"><span class="record-index">A / 04<br><span>KNOWLEDGE DOSSIERS</span></span><div><p class="record-label">Wikipedia / Wikimedia</p><h3>ARCHIVE<br>ACCESS</h3><p>Follow a subject through recovered records and connected fragments.</p><span class="record-open">Explore dossiers <span aria-hidden="true">↗</span></span></div></a>
+                    <a class="archive-record restricted-record" href="apis/05-restricted-archive/index.html"><span class="record-index">R / 05<br><span>BOOKS &amp; AUTHORS</span></span><div><p class="record-label">Open Library</p><h3>RESTRICTED<br>ARCHIVE</h3><p>Search the shelves. Uncover books, author records, and their connections.</p><span class="record-open">Recover records <span aria-hidden="true">↗</span></span></div></a>
+                </div>
+            </section>
+            <section class="nexus-section unknown-sector" aria-labelledby="unknownHeading">
+                <div><p class="section-index">N-04 / Beyond the known paths</p><h2 id="unknownHeading">UNKNOWN<br>SECTORS</h2></div>
+                <div class="unmapped"><span class="unmapped-symbol" aria-hidden="true">[ — ]</span><p class="record-label">Unmapped / Not yet indexed</p><p>Room for what comes next.<br>No coordinates assigned.</p></div>
+            </section>
+        </div>
+        <footer class="home-footer"><span>404Experiments / NEXUS</span><a href="#nexus">Return to junction <span aria-hidden="true">↑</span></a></footer>
     </main>
 </body>
 </html>
