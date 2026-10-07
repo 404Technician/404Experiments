@@ -25,7 +25,7 @@ Requests are unauthenticated and use no API key or token. GitHub rate-limits una
 
 ## API Experiment: Weather Signal
 
-[`apis/02-weather/`](apis/02-weather/) uses the public Open-Meteo Forecast API for a fixed location in Best, North Brabant, Netherlands (`51.51, 5.39`). It requests a 14-day forecast in the `Europe/Amsterdam` timezone and includes daily conditions, air and apparent temperatures, precipitation, wind, sunrise, and sunset.
+[`apis/02-weather/`](apis/02-weather/) uses public Open-Meteo geocoding to resolve city/postal-code searches and a single Forecast API request for 14 days of local weather, current conditions, and hourly relative humidity. Best, North Brabant (`51.51, 5.39`) remains the default. The selected location’s timezone governs the daily humidity averages/ranges, date labels, sunrise, and sunset.
 
 The browser makes unauthenticated requests; no API credentials are stored. Forecast data is live and can change between updates. The page reports API, network, and incomplete-data states.
 
