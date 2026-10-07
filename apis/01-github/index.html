@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Live public GitHub profile and repository data, observed through the 404Experiments API field file.">
+    <title>GitHub API | 404Experiments</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="api-page">
+    <nav class="site-nav" aria-label="Site navigation">
+        <a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
+        <div class="site-nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../experiments/index.html">Experiments</a>
+            <a class="nav-index" href="../index.html">APIs</a>
+        </div>
+    </nav>
+    <main class="github-main">
+        <header class="api-page-heading">
+            <div>
+                <p class="section-index">API experiment // 01</p>
+                <h1>GitHub API</h1>
+                <p>Public signals from the profile and repository behind this archive.</p>
+            </div>
+            <div class="api-controls">
+                <p class="api-status" id="apiStatus" data-state="loading" role="status" aria-live="polite"><span class="status-dot" aria-hidden="true"></span>Contacting public endpoints</p>
+                <button class="refresh-button" id="refreshButton" type="button">Refresh data <span aria-hidden="true">↻</span></button>
+            </div>
+        </header>
+
+        <p class="api-error" id="apiError" role="status" aria-live="polite" hidden></p>
+
+        <div class="github-dashboard" id="githubDashboard" aria-busy="true">
+            <section class="api-panel profile-panel" aria-labelledby="profileHeading">
+                <div class="avatar-frame"><img id="profileAvatar" alt="" hidden></div>
+                <div class="profile-content">
+                    <p class="data-label">Public profile</p>
+                    <h2 id="profileHeading"><span id="profileName">Waiting for signal</span></h2>
+                    <a class="external-link" id="profileLink" href="https://github.com/404Technician" target="_blank" rel="noreferrer">@<span id="profileLogin">404Technician</span> <span aria-hidden="true">↗</span></a>
+                    <p class="profile-bio" id="profileBio">Profile data will appear here.</p>
+                    <dl class="profile-stats">
+                        <div><dt>Public repositories</dt><dd id="publicRepos">—</dd></div>
+                        <div><dt>Followers</dt><dd id="followers">—</dd></div>
+                        <div><dt>Following</dt><dd id="following">—</dd></div>
+                        <div><dt>Member since</dt><dd id="accountCreated">—</dd></div>
+                    </dl>
+                </div>
+            </section>
+
+            <section class="api-panel repository-panel" aria-labelledby="repositoryHeading">
+                <div class="panel-heading">
+                    <div>
+                        <p class="data-label">Repository // Primary signal</p>
+                        <h2 id="repositoryHeading"><span id="repositoryOwner">404Technician</span>/<wbr><span id="repositoryName">404Experiments</span></h2>
+                    </div>
+                    <a class="external-link" id="repositoryLink" href="https://github.com/404Technician/404Experiments" target="_blank" rel="noreferrer" aria-label="Open repository on GitHub">Open on GitHub <span aria-hidden="true">↗</span></a>
+                </div>
+                <p class="repository-description" id="repositoryDescription">Repository data will appear here.</p>
+                <div class="repository-stats">
+                    <div><span class="data-label">Stars</span><strong id="stars">—</strong></div>
+                    <div><span class="data-label">Forks</span><strong id="forks">—</strong></div>
+                    <div><span class="data-label">Open issues</span><strong id="openIssues">—</strong></div>
+                </div>
+                <dl class="repository-details">
+                    <div><dt>Primary language</dt><dd id="primaryLanguage">—</dd></div>
+                    <div><dt>Default branch</dt><dd id="defaultBranch">—</dd></div>
+                    <div><dt>Created</dt><dd id="repositoryCreated">—</dd></div>
+                    <div><dt>Last updated</dt><dd id="repositoryUpdated">—</dd></div>
+                    <div><dt>Latest push</dt><dd id="repositoryPushed">—</dd></div>
+                </dl>
+            </section>
+
+            <section class="api-panel commit-panel" aria-labelledby="commitHeading">
+                <div class="panel-heading">
+                    <div>
+                        <p class="data-label">Recent activity // HEAD</p>
+                        <h2 id="commitHeading">Latest commit</h2>
+                    </div>
+                    <span class="commit-indicator" aria-hidden="true">01</span>
+                </div>
+                <a class="commit-message" id="latestCommitLink" href="https://github.com/404Technician/404Experiments" target="_blank" rel="noreferrer">Waiting for latest commit</a>
+                <p class="commit-meta"><span id="commitSha">—</span><time id="commitDate">—</time></p>
+            </section>
+        </div>
+
+        <aside class="api-technical-note" aria-labelledby="technicalHeading">
+            <p class="section-index" id="technicalHeading">Technical note</p>
+            <p>This experiment reads live public data from the GitHub REST API. No GitHub token is stored or requested. Unauthenticated API requests are rate limited by GitHub.</p>
+            <a href="README.md">Endpoint and data notes <span aria-hidden="true">↗</span></a>
+        </aside>
+    </main>
+</body>
+</html>
