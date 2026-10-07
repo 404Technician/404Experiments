@@ -1038,4 +1038,25 @@ body:not(.home-page) main .output-swatch {
     .overview-intro h1 {
         font-size: 42px;
     }
+}/* Category meanings remain visible across every destination. */
+.site-nav .site-nav-links a { display: flex; flex-direction: column; justify-content: center; min-height: 48px; gap: 3px; }
+.site-nav .nav-meaning { color: var(--muted); font-size: 9px; line-height: 1.4; letter-spacing: .06em; }
+.site-nav [aria-current] .nav-meaning { color: var(--signal); }
+.skip-link { position: absolute; z-index: 10; top: 8px; left: 20px; padding: 12px; background: var(--ink); transform: translateY(-180%); }
+.skip-link:focus { transform: none; }
+.overview-intro .overview-meaning { margin: 0 0 18px; color: var(--signal); font: 12px/1.6 var(--mono); text-transform: uppercase; letter-spacing: .1em; }
+.knowledge-records { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.knowledge-record { padding: 32px 0; border-top: 1px solid var(--muted); border-bottom: 1px solid var(--line); text-decoration: none; background: repeating-linear-gradient(0deg, #94bad403 0 1px, transparent 1px 6px); }
+.knowledge-record + .knowledge-record { margin-top: 50px; border-top-style: dashed; }
+.knowledge-record h2 { margin: 28px 0 16px; color: var(--text); font-size: 32px; font-weight: 400; }
+.knowledge-record p { max-width: 420px; color: var(--muted); }
+.knowledge-record .open-experiment { margin-top: 20px; min-height: 44px; }
+.knowledge-record:hover h2 { color: var(--signal); }
+@media (max-width: 620px) {
+    .site-nav { gap: 12px; }
+    .site-nav .site-nav-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; width: 100%; }
+    .site-nav .site-nav-links a { font-size: 10px; }
+    .site-nav .nav-meaning { font-size: 8px; letter-spacing: 0; }
+    .knowledge-records { grid-template-columns: 1fr; gap: 32px; }
+    .knowledge-record + .knowledge-record { margin-top: 0; }
 }
