@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A live signal feed from the public Hacker News Firebase API.">
+    <title>Hacker News Signal | 404Experiments</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="hacker-news-page">
+    <nav class="site-nav" aria-label="Site navigation">
+        <a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
+        <div class="site-nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../experiments/index.html">Experiments</a>
+            <a class="nav-index" href="../index.html">APIs</a>
+        </div>
+    </nav>
+
+    <main class="hn-main">
+        <header class="hn-header">
+            <div class="hn-heading-copy">
+                <p class="section-index">API EXPERIMENT // 03</p>
+                <h1>HACKER NEWS <span>/ LIVE SIGNAL FEED</span></h1>
+                <p>Public story streams, resolved one signal at a time.</p>
+            </div>
+            <div class="hn-header-tools">
+                <p class="hn-status" id="hnStatus" data-state="loading" role="status" aria-live="polite"><span class="hn-status-dot" aria-hidden="true"></span><span id="hnStatusText">Connecting to Hacker News</span></p>
+                <button class="hn-refresh" id="hnRefresh" type="button">Refresh <span aria-hidden="true">↻</span></button>
+            </div>
+        </header>
+
+        <section class="hn-feed-section" aria-labelledby="feedHeading">
+            <div class="hn-feed-toolbar">
+                <div>
+                    <p class="section-index">INCOMING // <span id="hnItemCount">20 RECORDS</span></p>
+                    <h2 id="feedHeading">Top stories</h2>
+                </div>
+                <div class="hn-feed-actions">
+                    <div class="hn-feed-controls" role="group" aria-label="Hacker News feed">
+                        <button type="button" data-feed="top" aria-pressed="true">Top</button>
+                        <button type="button" data-feed="new" aria-pressed="false">New</button>
+                        <button type="button" data-feed="best" aria-pressed="false">Best</button>
+                        <button type="button" data-feed="ask" aria-pressed="false">Ask</button>
+                        <button type="button" data-feed="show" aria-pressed="false">Show</button>
+                        <button type="button" data-feed="jobs" aria-pressed="false">Jobs</button>
+                    </div>
+                </div>
+            </div>
+
+            <p class="hn-error" id="hnError" role="status" aria-live="polite" hidden></p>
+            <ol class="hn-story-list" id="hnStoryList" aria-label="Hacker News stories" aria-busy="true">
+                <li class="hn-feed-placeholder">Resolving public story records...</li>
+            </ol>
+            <div class="hn-list-footer">
+                <span id="hnUpdated">WAITING FOR FIRST SIGNAL</span>
+                <span>PUBLIC V0 API // READ ONLY</span>
+            </div>
+        </section>
+
+        <footer class="hn-footnote">
+            <span>External story links open in a new tab.</span>
+            <a href="README.md">API field notes <span aria-hidden="true">↗</span></a>
+        </footer>
+    </main>
+</body>
+</html>
