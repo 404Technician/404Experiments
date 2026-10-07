@@ -11,7 +11,7 @@ Live site: https://404technician.github.io/404Experiments/
 - **APIs** (`apis/`) contains experiments that read public services. New API experiments can be added as numbered folders.
 - **Future experiments** (`future-experiments/`) marks space for categories that may appear later.
 
-All sections share the root `site.css` theme and the same Home / Experiments / APIs navigation. Individual tools retain their existing behavior and local styling where needed.
+All sections share the root `site.css` theme and the same 404 / NEXUS / LAB / SIGNALS navigation (home, experiments, and APIs). Individual tools retain their existing behavior and local styling where needed.
 
 ## API Experiment: GitHub
 
@@ -36,6 +36,10 @@ The browser makes unauthenticated requests; no API credentials are stored. Forec
 ## API Experiment: Archive Access
 
 [`apis/04-archive-access/`](apis/04-archive-access/) resolves English Wikipedia searches into a dossier with a plain-text extract, lead image, related article links, metadata, and optional Wikimedia visual material. It uses the public MediaWiki Action API without credentials; optional related and image requests do not block the primary article.
+
+## API Experiment: Restricted Archive
+
+[`apis/05-restricted-archive/`](apis/05-restricted-archive/) searches the public Open Library catalog by general query, title, author, ISBN, or subject. It resolves Work and Author records on demand, displays official cover images where available, and uses no API credentials.
 
 ## Experiments
 
