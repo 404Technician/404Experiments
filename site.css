@@ -1060,3 +1060,9 @@ body:not(.home-page) main .output-swatch {
     .knowledge-records { grid-template-columns: 1fr; gap: 32px; }
     .knowledge-record + .knowledge-record { margin-top: 0; }
 }
+
+/* Missing channels are records, not interactive signal cards. */
+.experiment-card.signal-lost, .experiment-card.signal-lost:hover { background: #080e15; border-right-style: dashed; border-bottom-style: dashed; transform: none; box-shadow: none; z-index: auto; }
+.signal-lost .experiment-number, .signal-lost h3 { color: var(--muted); }
+.signal-lost h3 { font: 13px/1.6 var(--mono); letter-spacing: .04em; }
+.signal-lost p { color: var(--dim); }
