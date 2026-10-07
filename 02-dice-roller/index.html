@@ -8,9 +8,15 @@
 </head>
 <body>
     <nav class="site-nav" aria-label="Site navigation">
-        <a href="../index.html"><span aria-hidden="true">←</span> Back to 404Experiments</a>
+        <a class="site-brand" href="../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span><span>Experiments</span></a>
+        <div class="site-nav-links">
+            <a class="nav-index" href="../index.html#experiments">Main menu</a>
+            <a href="../apis/index.html">APIs</a>
+            <a href="../future-experiments/index.html">Future experiments</a>
+        </div>
     </nav>
 
+    <main>
     <h1>Dice Roller</h1>
 
     <button onclick="rollDice()">
@@ -18,6 +24,7 @@
     </button>
 
     <p id="result">Press the button.</p>
+    </main>
 
     <script>
         function rollDice() {
