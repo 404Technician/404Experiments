@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Search public Open Library records for books, authors, ISBNs, and technical subjects.">
+    <title>Restricted Archive | 404Experiments</title>
+    <link rel="stylesheet" href="../../site.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="restricted-archive-page">
+    <nav class="site-nav" aria-label="Site navigation">
+        <a class="site-brand" href="../../index.html" aria-label="404Experiments home"><span class="brand-mark">404</span></a>
+        <div class="site-nav-links">
+            <a href="../../index.html" aria-label="NEXUS / Home" title="Home">NEXUS</a>
+            <a href="../../experiments/index.html" aria-label="LAB / Experiments" title="Experiments">LAB</a>
+            <a class="nav-index" href="../index.html" aria-label="SIGNALS / APIs" title="APIs">SIGNALS</a>
+        </div>
+    </nav>
+
+    <main class="restricted-main">
+        <header class="restricted-header">
+            <div>
+                <p class="section-index">API EXPERIMENT // 05</p>
+                <h1>RESTRICTED ARCHIVE</h1>
+                <p class="restricted-subtitle">BOOKS / AUTHORS / TECHNICAL RECORDS</p>
+            </div>
+            <p class="restricted-status" id="archiveStatus" data-state="idle" role="status" aria-live="polite"><span aria-hidden="true"></span><span id="archiveStatusText">ARCHIVE INDEX ONLINE</span></p>
+        </header>
+
+        <section class="catalog-query" aria-labelledby="queryHeading">
+            <div class="section-label-row">
+                <p class="section-index" id="queryHeading">QUERY</p>
+                <span>OPEN LIBRARY // PUBLIC CATALOG</span>
+            </div>
+            <form id="searchForm" class="catalog-search">
+                <label class="visually-hidden" for="catalogQuery">Search books, authors, ISBNs, or subjects</label>
+                <select id="searchMode" aria-label="Search mode">
+                    <option value="general">General</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="isbn">ISBN</option>
+                    <option value="subject">Subject / topic</option>
+                </select>
+                <input id="catalogQuery" name="q" type="search" placeholder="control engineering" autocomplete="off" required>
+                <button id="searchButton" type="submit">Search archive <span aria-hidden="true">→</span></button>
+            </form>
+            <div class="catalog-hints" aria-label="Example queries">
+                <span>TRY</span>
+                <button type="button" data-query="control engineering" data-mode="general">control engineering</button>
+                <button type="button" data-query="process control" data-mode="title">process control</button>
+                <button type="button" data-query="Norbert Wiener" data-mode="author">Norbert Wiener</button>
+                <button type="button" data-query="electrical engineering" data-mode="subject">electrical engineering</button>
+            </div>
+        </section>
+
+        <section class="catalog-message" id="catalogMessage" role="status" aria-live="polite">
+            Enter a query to retrieve public catalog records.
+        </section>
+        <section class="catalog-error" id="catalogError" role="alert" hidden>
+            <p id="catalogErrorText"></p>
+            <button id="retrySearch" type="button">Retry query</button>
+        </section>
+
+        <section class="retrieved-section" aria-labelledby="retrievedHeading">
+            <div class="retrieved-header">
+                <div>
+                    <div class="section-label-row">
+                        <p class="section-index">RETRIEVED RECORDS</p>
+                        <span id="resultCount">0 FILES</span>
+                    </div>
+                    <h2 class="visually-hidden" id="retrievedHeading">Retrieved records</h2>
+                </div>
+                <div class="result-controls">
+                    <label for="sortResults">Sort
+                        <select id="sortResults">
+                            <option value="relevance">Relevance</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="newest">Newest</option>
+                        </select>
+                    </label>
+                    <label class="filter-control"><input id="coverFilter" type="checkbox"> Has cover</label>
+                    <label class="filter-control"><input id="readableFilter" type="checkbox"> Readable</label>
+                </div>
+            </div>
+            <div class="record-list-wrap">
+                <ol class="record-list" id="recordList" aria-busy="false">
+                    <li class="record-empty">NO FILES RETRIEVED</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="record-detail" id="recordDetail" aria-labelledby="detailTitle" hidden>
+            <div class="section-label-row">
+                <p class="section-index">RECORD DETAIL</p>
+                <button class="detail-close" id="closeDetail" type="button">Close detail <span aria-hidden="true">×</span></button>
+            </div>
+            <div class="detail-layout">
+                <div class="detail-cover-wrap">
+                    <img id="detailCover" alt="" loading="lazy" hidden>
+                    <div class="cover-placeholder" id="detailCoverPlaceholder"><span aria-hidden="true">404</span><small>NO COVER ON FILE</small></div>
+                </div>
+                <div class="detail-content">
+                    <p class="detail-key" id="detailKey">OPEN LIBRARY RECORD</p>
+                    <h2 id="detailTitle">Record title</h2>
+                    <div class="detail-byline" id="detailAuthors"></div>
+                    <p class="availability-state" id="availabilityState">OPEN LIBRARY RECORD ONLY</p>
+                    <p class="work-description" id="workDescription">Work details have not been retrieved.</p>
+                    <div class="detail-subjects" id="detailSubjects"></div>
+                    <div class="identifier-list" id="identifierList"></div>
+                    <div class="work-links" id="workLinks"></div>
+                    <a class="openlibrary-link" id="openLibraryLink" href="https://openlibrary.org/" target="_blank" rel="noopener noreferrer">Open Library record ↗</a>
+                </div>
+            </div>
+            <section class="author-file" id="authorFile" aria-labelledby="authorFileTitle" hidden>
+                <div class="section-label-row">
+                    <p class="section-index">AUTHOR FILE</p>
+                    <span id="authorFileKey">AUTHOR RECORD</span>
+                </div>
+                <h3 id="authorFileTitle"></h3>
+                <p id="authorBio"></p>
+                <div class="author-meta" id="authorMeta"></div>
+            </section>
+            <div class="archive-record-trail" id="recordTrail" hidden></div>
+        </section>
+
+        <footer class="restricted-footnote">
+            <span>PUBLIC CATALOG // OPEN LIBRARY</span>
+            <span>LOW-VOLUME LOOKUP // NO CREDENTIALS STORED</span>
+            <a href="README.md">API field notes ↗</a>
+        </footer>
+    </main>
+</body>
+</html>
