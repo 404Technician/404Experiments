@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A live fourteen-day Open-Meteo forecast for Best, North Brabant, Netherlands.">
+    <meta name="description" content="Search worldwide locations for live current conditions, relative humidity, and a fourteen-day Open-Meteo forecast.">
     <title>Weather Signal | 404Experiments</title>
     <link rel="stylesheet" href="../../site.css">
     <link rel="stylesheet" href="style.css">
@@ -25,14 +25,29 @@
         <header class="weather-header">
             <div>
                 <p class="section-index">SIGNALS // 02</p>
-                <h1>BEST <span>/ NL</span></h1>
-                <p class="weather-subtitle"><span>North Brabant, Netherlands</span><span class="weather-feed-label"><span class="weather-separator" aria-hidden="true">·</span> Open-Meteo live feed</span></p>
+                <h1>WEATHER <span>/ SIGNAL</span></h1>
+                <p class="weather-subtitle"><span>Local conditions, wherever you look</span><span class="weather-feed-label"><span class="weather-separator" aria-hidden="true">·</span> Open-Meteo live feed</span></p>
             </div>
             <div class="weather-header-tools">
                 <p class="weather-status" id="weatherStatus" data-state="loading" role="status" aria-live="polite"><span aria-hidden="true"></span>Locating forecast signal</p>
                 <button class="weather-refresh" id="refreshWeather" type="button" aria-label="Refresh forecast">Refresh <span aria-hidden="true">↻</span></button>
             </div>
         </header>
+
+        <section class="location-search-panel" aria-labelledby="locationSearchTitle">
+            <form id="locationSearch" novalidate>
+                <label id="locationSearchTitle" for="locationQuery">Location signal / Search city or postal code</label>
+                <div class="location-search-line"><input id="locationQuery" name="location" type="search" placeholder="Search city or postal code" maxlength="120" autocomplete="off" aria-describedby="locationSearchStatus"><button type="submit">Resolve location <span aria-hidden="true">↗</span></button></div>
+            </form>
+            <p class="location-search-status" id="locationSearchStatus" role="status" aria-live="polite">Best, Netherlands is the starting location. Search to follow another forecast.</p>
+            <button id="retryLocationSearch" type="button" hidden>Retry location search</button>
+            <ul class="location-results" id="locationResults" aria-label="Matching locations" aria-busy="false"></ul>
+        </section>
+
+        <section class="current-weather" aria-labelledby="resolvedLocation">
+            <div class="resolved-location"><p class="section-index">Selected location</p><h2 id="resolvedLocation">Best <span>/ NL</span></h2><p id="locationRegion">North Brabant, Netherlands</p><p class="location-coordinates" id="locationCoordinates">51.51° N · 5.39° E</p><p class="location-timezone">TIMEZONE / <span id="locationTimezone">Europe/Amsterdam</span></p></div>
+            <div class="current-conditions"><p class="section-index">Current conditions <span id="currentTime"></span></p><dl class="current-condition-grid"><div><dt>Temperature</dt><dd id="currentTemperature">—</dd></div><div><dt>Condition</dt><dd id="currentCondition">—</dd></div><div><dt>Relative humidity</dt><dd id="currentHumidity">—</dd></div><div><dt>Wind speed</dt><dd id="currentWind">—</dd></div></dl></div>
+        </section>
 
         <p class="weather-error" id="weatherError" role="status" aria-live="polite" hidden></p>
 
@@ -45,7 +60,7 @@
                 <p class="forecast-unit-note">Daily high / low <span aria-hidden="true">·</span> °C</p>
             </div>
             <div class="forecast-grid" id="forecastGrid" aria-busy="true" aria-label="Fourteen day forecast">
-                <p class="forecast-placeholder">Receiving forecast data from Best...</p>
+                <p class="forecast-placeholder">Receiving forecast data…</p>
             </div>
         </section>
 
@@ -59,14 +74,15 @@
                 <div><dt>Feels like</dt><dd id="detailFeels">—</dd></div>
                 <div><dt>Precipitation</dt><dd id="detailPrecipitation">—</dd></div>
                 <div><dt>Wind / gusts</dt><dd id="detailWind">—</dd></div>
+                <div class="detail-humidity"><dt>Relative humidity</dt><dd><span id="detailHumidityAverage">Average: —</span><span id="detailHumidityLow">Low: —</span><span id="detailHumidityHigh">High: —</span></dd></div>
                 <div><dt>Sunrise</dt><dd id="detailSunrise">—</dd></div>
                 <div><dt>Sunset</dt><dd id="detailSunset">—</dd></div>
             </dl>
         </section>
 
         <footer class="weather-footnote">
-            <span>Fixed coordinates // 51.51°N 5.39°E</span>
-            <span>Public forecast data // No credentials stored</span>
+            <span>Local forecast // Open-Meteo</span>
+            <span><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Weather data by Open-Meteo</a> // No credentials stored</span>
         </footer>
     </main>
 </body>
