@@ -3,22 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A collection of small coding experiments and practical interactive tools.">
-    <title>404Experiments | Project Hub</title>
+    <meta name="description" content="A field archive for experiments, hidden projects, strange tools, and systems still taking shape.">
+    <title>404Experiments | The Unfound Archive</title>
     <link rel="stylesheet" href="site.css">
 </head>
 <body class="home-page">
+    <nav class="site-nav" aria-label="Site navigation">
+        <a class="site-brand" href="index.html" aria-label="404Experiments home">
+            <span class="brand-mark">404</span>
+            <span>Experiments</span>
+        </a>
+        <div class="site-nav-links">
+            <a class="nav-index" href="#experiments">Main menu</a>
+            <a href="apis/index.html">APIs</a>
+            <a href="future-experiments/index.html">Future experiments</a>
+        </div>
+    </nav>
+
     <main class="home-main">
-        <header class="home-header">
-            <p class="home-kicker">A small project lab</p>
-            <h1>404Experiments</h1>
-            <p>Ten small experiments for learning code by making useful, interactive things.</p>
+        <header class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">Archive // Coordinates unavailable</p>
+                <p class="hero-code" aria-hidden="true">404</p>
+                <h1 class="hero-title">Somewhere beyond the known.</h1>
+                <p class="hero-copy">A field archive for experiments, hidden projects, strange tools, and future systems still taking shape.</p>
+                <div class="hero-actions">
+                    <a class="primary-link" href="#experiments">Enter the archive <span aria-hidden="true">↘</span></a>
+                    <a class="text-link" href="#meaning">What is 404? <span aria-hidden="true">→</span></a>
+                </div>
+            </div>
+            <p class="hero-status"><span aria-hidden="true"></span>Signal detected // 10 files</p>
         </header>
 
-        <section aria-labelledby="experimentsHeading">
+        <section class="home-section" id="experiments" aria-labelledby="experimentsHeading">
             <div class="section-title">
-                <h2 id="experimentsHeading">Explore the experiments</h2>
-                <span>01–10</span>
+                <div>
+                    <p class="section-index">01 / Active files</p>
+                    <h2 id="experimentsHeading">Experimental tools</h2>
+                </div>
+                <p>Ten instruments recovered from the edge of the map. Open a file and see what answers.</p>
             </div>
             <div class="experiment-grid">
                 <article class="experiment-card">
@@ -83,7 +106,42 @@
                 </article>
             </div>
         </section>
-        <footer class="home-footer">Made to learn by trying things.</footer>
+
+        <section class="home-section" id="frontier" aria-labelledby="frontierHeading">
+            <div class="section-title">
+                <div>
+                    <p class="section-index">02 / Uncharted</p>
+                    <h2 id="frontierHeading">Beyond the archive</h2>
+                </div>
+                <p>Some doors are marked. Others are only beginning to appear.</p>
+            </div>
+            <div class="future-grid">
+                <a class="future-card" id="apis" href="apis/index.html">
+                    <span class="coming-label">Coming soon // 00 endpoints</span>
+                    <h3>APIs</h3>
+                    <p>Interfaces to systems not yet mapped. The first signals are still forming.</p>
+                </a>
+                <a class="future-card" href="future-experiments/index.html">
+                    <span class="coming-label">Coming soon // Uncatalogued</span>
+                    <h3>Future experiments</h3>
+                    <p>New instruments, unfinished ideas, and projects without coordinates.</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="home-section meaning-section" id="meaning" aria-labelledby="meaningHeading">
+            <div class="meaning-mark" aria-hidden="true">404</div>
+            <div class="meaning-copy">
+                <p class="section-index">03 / The anomaly</p>
+                <h2 id="meaningHeading">What is 404?</h2>
+                <p>A missing address. An unknown place. Here, 404 is a permission to look past the expected: to test what is unfinished, uncover what is hidden, and make something useful from the unexplored.</p>
+            </div>
+        </section>
+
+        <footer class="home-footer">
+            <span>404Experiments // Field archive</span>
+            <span>Off-grid by design</span>
+        </footer>
     </main>
 </body>
 </html>
