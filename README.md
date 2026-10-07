@@ -64,6 +64,18 @@ The browser makes unauthenticated requests; no API credentials are stored. Forec
 Add new tools under `experiments/` or new API interfaces as numbered folders under `apis/`. Other categories can be introduced as the archive grows.
 ## NEXUS / Live system status
 
+The compact hero heartbeat reports real outcomes from the same six requests:
+Weather updated, NEO tracking online, Currency refreshed, Hacker feed received,
+GitHub trace updated and Deep Space acquired. Source failures say unavailable;
+stale readings explicitly say received / older observation. Every existing
+initial, manual or five-minute refresh starts with RECEIVING..., queues outcomes
+for three seconds each, then returns to MONITORING SIGNALS. It adds no requests,
+libraries or idle cycling. The polite, atomic live region uses reserved space;
+its tiny receiving-dot pulse is disabled for reduced motion. Hidden pages pause
+the queue, and a new refresh replaces any remaining events from the previous sync.
+Heartbeat timing, idle, failures, request counts, keyboard and responsive layouts
+are covered by `node tests/nexus.browser.cjs` with controlled source responses.
+
 The homepage now receives six compact statuses immediately after its cinematic
 hero. All source logic lives in nexus.js; no external library or private
 credential is added. The decorative eight-node SVG reflects successful, stale
