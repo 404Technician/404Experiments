@@ -138,3 +138,58 @@
     .nexus-paths small { max-width: none; }
     .nexus-page .unknown-sector { gap: 26px; padding-block: 48px; }
 }
+
+/* Live reception remains subordinate to the identity and destination paths. */
+.nexus-network { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: .65; }
+.network-links { fill: none; stroke: #63dcff; stroke-width: .7; opacity: .12; }
+.network-transit { fill: none; stroke: #63dcff; stroke-width: 1; stroke-dasharray: 8 460; opacity: .2; animation: nexus-transmission 32s linear infinite; }
+.network-transit path:last-child { opacity: .5; }
+.network-nodes circle { fill: #35566b; opacity: .4; transition: fill 1.5s, opacity 1.5s; }
+.network-nodes [data-state="active"] { fill: #63dcff; opacity: .75; }
+.network-nodes [data-state="stale"] { fill: #a5b4ad; opacity: .45; }
+.network-nodes [data-state="unavailable"] { opacity: .15; }
+@keyframes nexus-transmission { to { stroke-dashoffset: -936; } }
+.nexus-page[data-paused="true"] .network-transit { animation-play-state: paused; }
+.nexus-status { padding: 32px 6% 26px; border-bottom: 1px solid var(--line); background: linear-gradient(100deg, #0b1c2926, transparent); }
+.status-heading { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.nexus-status h2 { margin: 9px 0 0; font: 400 18px/1.4 var(--sans); letter-spacing: .06em; }
+.status-heading .section-index { margin: 0; font-size: 9px; }
+.sync-controls { display: flex; align-items: center; gap: 22px; }
+.sync-controls p { margin: 0; color: var(--dim); font: 9px/1.7 var(--mono); }
+.sync-controls time { display: block; min-width: 150px; color: var(--muted); font-size: 11px; }
+.nexus-page #refresh-signals { min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); background: transparent; color: var(--muted); font: 10px/1.5 var(--mono); letter-spacing: .05em; cursor: pointer; }
+#refresh-signals:disabled { opacity: .5; cursor: default; }
+.status-context, .sync-note { color: var(--muted); font: 10px/1.8 var(--mono); }
+.status-context { margin: 14px 0 20px; }
+.status-readings { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 30px; }
+.status-signal { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: 22px 34px 36px; gap: 4px 12px; align-content: center; padding: 18px 0; min-width: 0; border-top: 1px solid var(--line); text-decoration: none; }
+.status-label { color: var(--muted); font: 10px/1.6 var(--mono); letter-spacing: .05em; }
+.status-label > span { color: var(--dim); }
+.status-value { grid-column: 1 / -1; color: var(--text); font: 400 clamp(15px, 1.6vw, 21px)/1.5 var(--mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.status-detail { grid-column: 1 / -1; color: var(--dim); font: 10px/1.7 var(--mono); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.status-state { grid-column: 2; grid-row: 1; color: var(--dim); font: 9px/1.6 var(--mono); white-space: nowrap; }
+.status-state::before { content: '○ '; }
+[data-state="active"] .status-state { color: var(--signal); }
+[data-state="active"] .status-state::before { content: '● '; }
+[data-state="stale"] .status-state { color: #bcb59a; }
+[data-state="stale"] .status-state::before { content: '◌ '; }
+[data-state="unavailable"] .status-state::before { content: '× '; }
+.status-signal:hover .status-label, .status-signal:focus-visible .status-label { color: var(--signal); }
+.sync-note { margin: 14px 0 0; min-height: 36px; }
+@media (max-width: 900px) {
+    .status-readings { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+    .sync-controls { gap: 12px; }
+    .status-value { font-size: 18px; }
+}
+@media (max-width: 620px) {
+    .nexus-status { padding: 28px 0 20px; }
+    .status-heading { align-items: start; flex-direction: column; gap: 16px; }
+    .sync-controls { width: 100%; justify-content: space-between; }
+    .sync-controls time { min-width: 0; }
+    .status-readings { grid-template-columns: 1fr; }
+    .status-signal { grid-template-rows: 22px 30px 36px; padding: 14px 0; }
+    .nexus-network { opacity: .4; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nexus-network *, .network-transit { animation: none !important; transition: none !important; }
+}
