@@ -58,3 +58,63 @@
 .unmapped-symbol { color: #678594; font: 40px/1 var(--mono); }
 .unmapped .record-label { margin: 24px 0 14px; color: var(--muted); }
 .nexus-page .home-footer { padding: 30px 0 35px 6%; }
+@media (max-width: 900px) {
+    .nexus-hero { min-height: 710px; padding-top: 90px; }
+    .junction { width: 310px; top: 170px; right: 0; }
+    .junction::after { left: -80px; width: 440px; }
+    .nexus-coordinates { bottom: 125px; }
+    .sector-heading { align-items: start; flex-direction: column; gap: 20px; }
+    .lab-entry { grid-template-columns: 135px 1fr 28px; gap: 16px; }
+    .signal-entry { padding-right: 16px; }
+    .signal-entry + .signal-entry { padding-left: 16px; }
+    .signal-source { font-size: 9px; }
+    .nexus-section h3 { font-size: 21px; }
+    .archive-records { gap: 24px; }
+    .archive-record { gap: 14px; grid-template-columns: 24px 1fr; }
+    .archive-record h3 { font-size: 27px; }
+}
+@media (max-width: 620px) {
+    .nexus-page { padding-inline: 18px; }
+    .nexus-page .site-nav { min-height: 72px; gap: 16px; }
+    .nexus-page .site-nav-links { gap: 20px; font-size: 10px; }
+    .nexus-hero { min-height: 680px; padding: 72px 0 100px; }
+    .nexus-hero .section-index { max-width: 220px; font-size: 9px; line-height: 1.8; }
+    .nexus-code { margin: 48px 0 0 -4px; font-size: clamp(150px, 48vw, 270px); }
+    .nexus-intro h1 { margin-top: 26px; font-size: 28px; letter-spacing: .3em; }
+    .nexus-copy { font-size: 14px; margin-top: 22px; }
+    .nexus-page .hero-actions { gap: 12px; }
+    .nexus-page .hero-actions a { font-size: 10px; }
+    .junction { width: 240px; right: 0; top: 120px; opacity: .65; }
+    .junction::after { width: 290px; left: -30px; }
+    .nexus-coordinates { display: none; }
+    .nexus-baseline { left: 0; right: 0; flex-direction: column; gap: 6px; font-size: 9px; }
+    .nexus-sectors { margin-left: 3px; }
+    .nexus-section { padding: 72px 0 64px 20px; }
+    .nexus-section::before { top: 78px; }
+    .sector-heading { margin-bottom: 30px; }
+    .nexus-section .section-index { font-size: 9px; letter-spacing: .08em; }
+    .nexus-section h2 { font-size: 29px; }
+    .lab-entry { grid-template-columns: 1fr 26px; gap: 10px; padding: 24px 8px 24px 0; }
+    .node-id { grid-column: 1 / -1; }
+    .lab-entry p { font-size: 13px; }
+    .signal-strip { grid-template-columns: 1fr; }
+    .signal-entry, .signal-entry + .signal-entry { padding: 24px 0; border-left: 0; border-top: 1px solid var(--line); }
+    .signal-source { font-size: 10px; }
+    .signal-entry h3 { margin-top: 18px; font-size: 24px; }
+    .signal-open { margin-top: 20px; }
+    .source-note { margin-top: -10px; font-size: 10px; }
+    .archive-records { grid-template-columns: 1fr; gap: 32px; }
+    .archive-record { gap: 18px; padding-block: 26px; }
+    .archive-record h3 { font-size: 32px; }
+    .restricted-record { margin-top: 0; }
+    .unknown-sector { grid-template-columns: 1fr; gap: 36px; padding-bottom: 80px; }
+    .unmapped-symbol { font-size: 32px; }
+    .nexus-page .home-footer { padding-left: 23px; font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nexus-page *, .nexus-page *::before, .nexus-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media (max-width: 620px) {
+    .nexus-page .site-nav { flex-direction: row; align-items: center; }
+    .nexus-page .site-nav-links { justify-content: flex-end; }
+}
