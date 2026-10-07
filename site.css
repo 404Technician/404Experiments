@@ -1066,3 +1066,10 @@ body:not(.home-page) main .output-swatch {
 .signal-lost .experiment-number, .signal-lost h3 { color: var(--muted); }
 .signal-lost h3 { font: 13px/1.6 var(--mono); letter-spacing: .04em; }
 .signal-lost p { color: var(--dim); }
+
+.lab-section + .lab-section { margin-top: 48px; }
+.lab-section h2 { margin: 0 0 10px; color: var(--signal); font: 15px/1.6 var(--mono); letter-spacing: .08em; }
+.lab-section-intro { margin: 0 0 24px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.early-builds h2, .early-builds .experiment-number { color: var(--muted); }
+.early-builds .experiment-card { background: #080e15; }
+.early-builds .experiment-card:hover { background: #112536; }
