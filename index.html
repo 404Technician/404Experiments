@@ -7,6 +7,7 @@
     <title>NEXUS | 404Experiments</title>
     <link rel="stylesheet" href="site.css">
     <link rel="stylesheet" href="nexus.css">
+    <script src="nexus.js" defer></script>
 </head>
 <body class="home-page nexus-page">
     <a class="skip-link" href="#nexus">Skip to NEXUS</a>
@@ -21,6 +22,16 @@
     </nav>
     <main class="home-main" id="nexus" tabindex="-1">
         <header class="nexus-hero">
+            <svg class="nexus-network" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+                <g class="network-links"><path d="M340 140L580 95L800 210L690 390L875 530M580 95L690 390L460 510L340 140M460 510L260 390L800 210"/></g>
+                <g class="network-transit"><path d="M580 95L800 210L690 390"/><path d="M340 140L460 510L875 530"/></g>
+                <g class="network-nodes">
+                    <circle data-node="weather" cx="340" cy="140" r="4"/><circle data-node="neo" cx="580" cy="95" r="4"/>
+                    <circle data-node="currency" cx="800" cy="210" r="4"/><circle data-node="hacker" cx="690" cy="390" r="4"/>
+                    <circle data-node="github" cx="460" cy="510" r="4"/><circle data-node="space" cx="875" cy="530" r="4"/>
+                    <circle cx="260" cy="390" r="2"/><circle cx="630" cy="580" r="2"/>
+                </g>
+            </svg>
             <div class="junction" aria-hidden="true"><span></span></div>
             <div class="nexus-intro">
                 <p class="section-index">No fixed coordinates / Central junction</p>
@@ -36,6 +47,23 @@
             <div class="nexus-coordinates" aria-hidden="true"><span>404 / N</span><span>Paths diverge.<br>The junction remains.</span></div>
             <p class="nexus-baseline"><span>LAB / SIGNALS / ARCHIVE</span><span>Further coordinates unknown</span></p>
         </header>
+        <section class="nexus-status" aria-labelledby="systemStatusHeading">
+            <div class="status-heading">
+                <div><p class="section-index">Junction / External reception</p><h2 id="systemStatusHeading">LIVE SYSTEM STATUS</h2></div>
+                <div class="sync-controls"><p>LAST SYNC <time id="nexus-last-sync">Awaiting reception</time></p><button id="refresh-signals" type="button" disabled>REFRESH SIGNALS</button></div>
+            </div>
+            <p class="status-context">Lightweight readings from beyond the junction. Source clocks differ.</p>
+            <div class="status-readings" id="status-readings" aria-busy="true">
+                <a class="status-signal" data-signal="weather" data-state="loading" href="apis/02-weather/index.html"><span class="status-label">WEATHER NODE <span aria-hidden="true">↗</span></span><strong class="status-value">WAITING</strong><span class="status-detail">Best, Netherlands</span><span class="status-state">LOADING</span></a>
+                <a class="status-signal" data-signal="neo" data-state="loading" href="apis/06-deep-space-signal/index.html"><span class="status-label">NEO TRACKING <span aria-hidden="true">↗</span></span><strong class="status-value">WAITING</strong><span class="status-detail">Today’s UTC object feed</span><span class="status-state">LOADING</span></a>
+                <a class="status-signal" data-signal="currency" data-state="loading" href="apis/07-currency-intercept/index.html"><span class="status-label">CURRENCY SIGNAL <span aria-hidden="true">↗</span></span><strong class="status-value">WAITING</strong><span class="status-detail">Latest reference signal / EUR/USD</span><span class="status-state">LOADING</span></a>
+                <a class="status-signal" data-signal="hacker" data-state="loading" href="apis/03-hacker-news/index.html"><span class="status-label">HACKER FEED <span aria-hidden="true">↗</span></span><strong class="status-value">WAITING</strong><span class="status-detail">Top-story ID list</span><span class="status-state">LOADING</span></a>
+                <a class="status-signal" data-signal="github" data-state="loading" href="apis/01-github/index.html"><span class="status-label">GITHUB TRACE <span aria-hidden="true">↗</span></span><strong class="status-value">WAITING</strong><span class="status-detail">404Technician / 404Experiments</span><span class="status-state">LOADING</span></a>
+                <a class="status-signal" data-signal="space" data-state="loading" href="apis/06-deep-space-signal/index.html"><span class="status-label">DEEP SPACE <span aria-hidden="true">↗</span></span><strong class="status-value">WAITING</strong><span class="status-detail">Today’s APOD metadata / UTC</span><span class="status-state">LOADING</span></a>
+            </div>
+            <p class="sync-note" id="sync-note" role="status">Receiving six independent sources. Last sync records refresh completion, not source publication.</p>
+            <noscript><p>Live status requires JavaScript. All experiment links remain available.</p></noscript>
+        </section>
         <div class="nexus-sectors">
             <section class="nexus-section labs-section" id="labs" aria-labelledby="labsHeading">
                 <div class="sector-heading"><div><p class="section-index">N-01 / Experimental systems</p><h2 id="labsHeading">ACTIVE LABS</h2></div><p>Small systems. Open possibilities.<br>Three paths into the workshop.</p></div>
@@ -48,7 +76,7 @@
             </section>
             <section class="nexus-section signals-section" id="signals" aria-labelledby="signalsHeading">
                 <div class="sector-heading"><div><p class="section-index">N-02 / External transmissions</p><h2 id="signalsHeading">LIVE SIGNALS</h2></div><p>The world beyond this junction.<br>Public sources, changing readings.</p></div>
-                <p class="source-note">Live data is retrieved when you open a signal.</p>
+                <p class="source-note">The junction receives compact statuses above. Open a signal for the full reading.</p>
                 <div class="signal-strip">
                     <a class="signal-entry" href="apis/02-weather/index.html"><span class="signal-source"><i aria-hidden="true"></i>Open-Meteo / 02</span><h3>Weather</h3><p>Local skies. Coordinates of your choosing.</p><span class="signal-open">Read forecast <span aria-hidden="true">↗</span></span></a>
                     <a class="signal-entry" href="apis/03-hacker-news/index.html"><span class="signal-source"><i aria-hidden="true"></i>Hacker News / 03</span><h3>Hacker News</h3><p>A stream of ideas from the outside.</p><span class="signal-open">Follow feed <span aria-hidden="true">↗</span></span></a>
