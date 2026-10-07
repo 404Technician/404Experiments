@@ -175,8 +175,8 @@ function drawChart(points) {
 
     context.font = "12px Arial, sans-serif";
     context.textBaseline = "middle";
-    context.strokeStyle = "#e6ebec";
-    context.fillStyle = "#667176";
+    context.strokeStyle = "rgba(154, 190, 211, 0.18)";
+    context.fillStyle = "#91a8b7";
     context.lineWidth = 1;
 
     for (let tick = 0; tick <= 4; tick += 1) {
@@ -203,9 +203,9 @@ function drawChart(points) {
         context.fillText(`${formatNumber(time)} s`, x, height - padding.bottom + 9);
     }
 
-    drawSeries(points, "setpoint", "#758187", [5, 4], xFor, yFor);
-    drawSeries(points, "process", "#147d78", [], xFor, yFor);
-    drawSeries(points, "output", "#d68a19", [], xFor, yFor);
+    drawSeries(points, "setpoint", "#5f788a", [5, 4], xFor, yFor);
+    drawSeries(points, "process", "#63dcff", [], xFor, yFor);
+    drawSeries(points, "output", "#4c91ff", [], xFor, yFor);
 }
 
 function drawSeries(points, key, color, dash, xFor, yFor) {
