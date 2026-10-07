@@ -6,6 +6,11 @@ Live site: https://404technician.github.io/404Experiments/
 
 ## Site Structure
 
+- LAB distinguishes **CURRENT EXPERIMENTS** (07–10) from **EARLY BUILDS** (01–06).
+- SIGNALS explicitly represents unavailable channels 04 and 05 as noninteractive **SIGNAL LOST** entries; ARCHIVE retains its historical URLs.
+- **CONNECTED NODES** provides curated links between related experiments and sources.
+
+
 - **Home** (`index.html`) is the cinematic entry point, with selected experiments and API signals.
 - **Experiments** (`experiments/`) contains the complete catalog of ten interactive tools. Their original folder URLs remain unchanged.
 - **APIs** (`apis/`) contains experiments that read public services. New API experiments can be added as numbered folders.

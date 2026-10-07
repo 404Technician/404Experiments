@@ -67,6 +67,8 @@ const server = http.createServer((req, res) => {
             if (url.origin === base) return route.continue();
             requests.push(url.href);
             const reply = data => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(data) });
+            // Navigation also opens NEXUS, whose compact forecast is a different request.
+            if (!new URL(page.url()).pathname.startsWith('/apis/02-weather/')) return reply({});
             if (url.hostname === 'geocoding-api.open-meteo.com') {
                 assert.equal(url.searchParams.get('count'), '5');
                 assert.equal(url.searchParams.get('language'), 'en');

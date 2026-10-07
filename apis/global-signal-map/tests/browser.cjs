@@ -92,7 +92,7 @@ async function run() {
         const refresh = async () => { await page.locator('#refresh-map').click(); await ready(); };
         await page.goto(home + '/apis/index.html');
         assert.equal(await page.locator('.global-map-entry h2').textContent(),'GLOBAL SIGNAL MAP');
-        assert.equal(await page.locator('.api-archive-card').count(),5);
+        assert.equal(await page.locator('.api-archive-card:not(.signal-lost)').count(),5);
         await page.locator('.global-map-entry a').click();
         assert.equal(page.url(),home + '/apis/global-signal-map/index.html');
         await ready();

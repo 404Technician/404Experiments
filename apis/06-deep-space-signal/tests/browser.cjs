@@ -186,7 +186,8 @@ const server = http.createServer((req, res) => {
         const hrefs = await page.locator('.site-nav a').evaluateAll(nodes => nodes.map(node => node.href));
         for (let i = 0; i < hrefs.length; i++) { await goto(); await page.locator('.site-nav a').nth(i).click(); await page.waitForURL(hrefs[i]); assert.equal((await page.request.get(hrefs[i])).status(), 200); }
         await page.goto(base + '/apis/index.html');
-        assert.equal(await page.locator('.experiment-card').count(), 4);
+        assert.equal(await page.locator('.api-archive-card:not(.signal-lost)').count(), 5);
+        assert.equal(await page.locator('.signal-lost').count(), 2);
         await page.getByRole('link', { name: 'Receive deep space signal' }).click();
         await page.waitForURL(base + '/apis/06-deep-space-signal/index.html');
         assert.equal(await page.locator('[aria-current="location"] > span').first().innerText(), 'SIGNALS');

@@ -1060,3 +1060,33 @@ body:not(.home-page) main .output-swatch {
     .knowledge-records { grid-template-columns: 1fr; gap: 32px; }
     .knowledge-record + .knowledge-record { margin-top: 0; }
 }
+
+/* Missing channels are records, not interactive signal cards. */
+.experiment-card.signal-lost, .experiment-card.signal-lost:hover { background: #080e15; border-right-style: dashed; border-bottom-style: dashed; transform: none; box-shadow: none; z-index: auto; }
+.signal-lost .experiment-number, .signal-lost h3 { color: var(--muted); }
+.signal-lost h3 { font: 13px/1.6 var(--mono); letter-spacing: .04em; }
+.signal-lost p { color: var(--dim); }
+
+.lab-section + .lab-section { margin-top: 48px; }
+.lab-section h2 { margin: 0 0 10px; color: var(--signal); font: 15px/1.6 var(--mono); letter-spacing: .08em; }
+.lab-section-intro { margin: 0 0 24px; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.early-builds h2, .early-builds .experiment-number { color: var(--muted); }
+.early-builds .experiment-card { background: #080e15; }
+.early-builds .experiment-card:hover { background: #112536; }
+
+/* Curated cross-references shared by LAB, SIGNALS and ARCHIVE. */
+.connected-nodes { max-width: 1040px; margin: 36px auto 0; padding: 24px clamp(16px, 3vw, 28px); border-top: 1px solid var(--line); text-align: left; }
+.connected-nodes .connected-heading { margin: 0 0 14px; color: var(--muted); font: 12px/1.6 var(--mono); letter-spacing: .1em; }
+.connected-list { margin: 0; padding: 0; list-style: none; }
+.connected-list li + li { border-top: 1px solid var(--line); }
+.connected-list a { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) 20px; align-items: center; gap: 20px; min-height: 64px; padding: 12px 4px; text-decoration: none; color: var(--text); }
+.connected-title { font: 12px/1.6 var(--mono); overflow-wrap: anywhere; }
+.connected-description { color: var(--muted); font: 13px/1.6 var(--sans); }
+.connected-arrow { color: var(--signal); text-align: right; }
+.connected-list a:hover .connected-title { color: var(--signal); }
+.connected-list a:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+@media (max-width: 620px) {
+ .connected-list a { grid-template-columns: minmax(0, 1fr) 20px; gap: 4px 12px; }
+ .connected-description { grid-column: 1; }
+ .connected-arrow { grid-column: 2; grid-row: 1 / span 2; }
+}
