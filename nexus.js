@@ -14,6 +14,44 @@
     let lastSync = 0;
     let timer;
 
+    const ACTIVITY_DURATION = 3000;
+    const activitySources = {
+        weather: ['WEATHER NODE', 'UPDATED'], neo: ['NEO TRACKING', 'ONLINE'],
+        currency: ['CURRENCY SIGNAL', 'REFRESHED'], hacker: ['HACKER FEED', 'RECEIVED'],
+        github: ['GITHUB TRACE', 'UPDATED'], space: ['DEEP SPACE SIGNAL', 'ACQUIRED']
+    };
+    let activityQueue = [];
+    let activityTimer;
+    let activityShown = 0;
+    let activityReceiving = false;
+
+    function displayActivity(message, state) {
+        $('activity-message').textContent = message;
+        $('nexus-activity').dataset.state = state;
+        activityShown = Date.now();
+    }
+    function scheduleActivity() {
+        clearTimeout(activityTimer);
+        if (document.hidden) return;
+        activityTimer = setTimeout(() => {
+            if (activityQueue.length) {
+                const event = activityQueue.shift();
+                displayActivity(event.message, event.state);
+                scheduleActivity();
+            } else if (!activityReceiving) {
+                displayActivity('MONITORING SIGNALS', 'idle');
+            }
+            // With requests pending, wait for their real outcomes instead of cycling.
+        }, Math.max(0, ACTIVITY_DURATION - (Date.now() - activityShown)));
+    }
+    function emitActivity({ source, state }) {
+        const [name, success] = activitySources[source];
+        const message = state === 'unavailable' ? name + ' UNAVAILABLE' :
+            state === 'stale' ? name + ' RECEIVED / OLDER OBSERVATION' : name + ' ' + success;
+        activityQueue.push({ message, state });
+        scheduleActivity();
+    }
+
     function relative(timestamp) {
         const minutes = Math.max(0, Math.floor((Date.now() - timestamp) / 60000));
         if (!minutes) return 'JUST NOW';
@@ -136,6 +174,7 @@
         const stale = (reading.stale?.() || Date.now() - reading.received >= INTERVAL);
         render(id, stale ? 'stale' : 'active', typeof reading.value === 'function' ? reading.value() : reading.value,
             reading.detail + (stale ? ' · Older observation / reception' : ''));
+        return stale ? 'stale' : 'success';
     }
     async function receive(id, load) {
         render(id, 'loading');
@@ -143,10 +182,11 @@
             const reading = await load();
             reading.received = Date.now();
             readouts.set(id, reading);
-            show(id, reading);
+            emitActivity({ source: id, state: show(id, reading) });
         } catch (error) {
             readouts.delete(id);
             render(id, 'unavailable', 'UNAVAILABLE', error.message + ' Refresh to retry.');
+            emitActivity({ source: id, state: 'unavailable' });
         }
     }
     function schedule() {
@@ -156,6 +196,10 @@
     async function refresh() {
         if (refreshing || document.hidden) return;
         refreshing = true;
+        activityReceiving = true;
+        activityQueue = [];
+        displayActivity('RECEIVING...', 'receiving');
+        scheduleActivity();
         clearTimeout(timer);
         $('refresh-signals').disabled = true;
         $('status-readings').setAttribute('aria-busy', 'true');
@@ -170,6 +214,8 @@
                 (unavailable ? ' · ' + unavailable + ' unavailable' : '') + '. Last sync is reception completion, not source publication.';
         } finally {
             refreshing = false;
+            activityReceiving = false;
+            scheduleActivity();
             $('refresh-signals').disabled = false;
             $('status-readings').setAttribute('aria-busy', 'false');
             schedule();
@@ -178,7 +224,10 @@
     $('refresh-signals').addEventListener('click', refresh);
     document.addEventListener('visibilitychange', () => {
         document.body.dataset.paused = String(document.hidden);
-        if (document.hidden) { clearTimeout(timer); return; }
+        if (document.hidden) { clearTimeout(timer); clearTimeout(activityTimer); return; }
+        // Give the currently visible message a readable interval on return.
+        activityShown = Date.now();
+        if (activityQueue.length || activityReceiving || $('nexus-activity').dataset.state !== 'idle') scheduleActivity();
         for (const [id, reading] of readouts) show(id, reading);
         if (!lastSync || Date.now() - lastSync >= INTERVAL) refresh();
         else {

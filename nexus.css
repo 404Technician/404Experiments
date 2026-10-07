@@ -193,3 +193,12 @@
 @media (prefers-reduced-motion: reduce) {
     .nexus-network *, .network-transit { animation: none !important; transition: none !important; }
 }
+
+/* Activity only moves while real reception is in progress. */
+.nexus-activity { display: flex; align-items: center; gap: 10px; min-height: 36px; margin: 10px 0 18px; color: var(--muted); font: 11px/1.6 var(--mono); letter-spacing: .04em; }
+#activity-message { min-width: 0; display: flex; align-items: center; min-height: 36px; max-width: 100%; overflow-wrap: anywhere; }
+.activity-dot { flex: 0 0 4px; width: 4px; height: 4px; border-radius: 50%; background: var(--signal); opacity: .45; }
+.nexus-activity[data-state="receiving"] .activity-dot { animation: activity-reception 2s ease-in-out infinite; }
+@keyframes activity-reception { 50% { opacity: .8; } }
+body[data-paused="true"] .activity-dot { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .nexus-activity .activity-dot { animation: none; } }

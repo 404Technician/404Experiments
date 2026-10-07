@@ -46,7 +46,10 @@ async function run() {
         const errors = [], media = [];
         page.on('pageerror', error => errors.push(error.message));
         page.on('request', req => { if (req.resourceType() === 'image' && new URL(req.url()).origin !== origin) media.push(req.url()); });
-        if (!live) await page.clock.install({ time: new Date('2026-10-07T12:00:00Z') });
+        if (!live) {
+            await page.clock.install({ time: new Date('2026-10-07T12:00:00Z') });
+            await page.clock.pauseAt(new Date('2026-10-07T12:00:01Z'));
+        }
         await page.route('**/*', async route => {
             const url = new URL(route.request().url());
             if (url.origin === origin) return route.continue();
@@ -65,12 +68,31 @@ async function run() {
         const value = id => page.locator('[data-signal="' + id + '"] .status-value');
         const row = id => page.locator('[data-signal="' + id + '"]');
         const settled = () => page.waitForFunction(() => document.getElementById('status-readings').getAttribute('aria-busy') === 'false');
-        const refresh = async () => { await page.locator('#refresh-signals').click(); await settled(); };
+        const activity = page.locator('#activity-message');
+        const refresh = async () => {
+            await page.locator('#refresh-signals').click();
+            assert.equal(await activity.textContent(), 'RECEIVING...');
+            await settled();
+        };
+        const recordActivity = () => page.evaluate(() => {
+            window.__activityEvents = [];
+            window.__activityObserver?.disconnect();
+            window.__activityObserver = new MutationObserver(() => window.__activityEvents.push({ message: document.getElementById('activity-message').textContent, time: Date.now() }));
+            window.__activityObserver.observe(document.getElementById('activity-message'), { childList: true });
+        });
+        const drainActivity = async () => {
+            await page.clock.runFor(21000);
+            assert.equal(await activity.textContent(), 'MONITORING SIGNALS');
+        };
         if (!live) hold = true;
         await page.goto(origin + '/index.html');
         if (!live) {
             await page.waitForFunction(() => document.querySelectorAll('[data-signal][data-state="loading"]').length === 6);
             while (held.length < 6) await new Promise(resolve => setTimeout(resolve, 10));
+            assert.equal(await activity.textContent(), 'RECEIVING...');
+            assert.equal(await activity.getAttribute('aria-live'), 'polite');
+            assert.equal(await activity.getAttribute('aria-atomic'), 'true');
+            await recordActivity();
             const before = (await page.locator('#labs').boundingBox()).y;
             assert.equal(await page.locator('#refresh-signals').isDisabled(), true);
             await page.locator('#refresh-signals').evaluate(el => { for (let i = 0; i < 8; i++) el.dispatchEvent(new Event('click')); });
@@ -80,6 +102,21 @@ async function run() {
             await settled();
             const after = (await page.locator('#labs').boundingBox()).y;
             assert.ok(Math.abs(after - before) < 1, 'Status arrivals changed layout');
+            await page.clock.runFor(2999);
+            assert.equal(await activity.textContent(), 'RECEIVING...');
+            await page.clock.runFor(18001);
+            assert.equal(await activity.textContent(), 'MONITORING SIGNALS');
+            const events = await page.evaluate(() => window.__activityEvents);
+            assert.deepEqual(events.slice(0, 6).map(event => event.message).sort(), [
+                'WEATHER NODE UPDATED', 'NEO TRACKING ONLINE', 'CURRENCY SIGNAL REFRESHED',
+                'HACKER FEED RECEIVED', 'GITHUB TRACE UPDATED', 'DEEP SPACE SIGNAL ACQUIRED'
+            ].sort());
+            assert.equal(events.length, 7);
+            for (let i = 1; i < events.length; i++) assert.ok(events[i].time - events[i - 1].time >= 3000);
+            await page.clock.runFor(30000);
+            assert.equal(await page.evaluate(() => window.__activityEvents.length), 7, 'Idle invented activity');
+            assert.equal(requests.length, 6, 'Idle activity added requests');
+            assert.ok(Math.abs((await page.locator('#labs').boundingBox()).y - before) < 1, 'Heartbeat shifted layout');
         } else await settled();
         assert.equal(requests.length, 6, 'Initial data request count');
         if (live) {
@@ -99,11 +136,19 @@ async function run() {
             assert.match(await page.locator('#nexus-last-sync').textContent(), /12:00:\d{2} UTC/);
             assert.ok(await page.locator('#nexus-last-sync').getAttribute('datetime'));
             for (const id of ['weather','neo','currency','hacker','github','space']) {
+                await recordActivity();
                 modes[id] = 'http'; await refresh();
                 assert.equal(await row(id).getAttribute('data-state'), 'unavailable');
                 assert.equal(await value(id).textContent(), 'UNAVAILABLE');
                 for (const other of ['weather','neo','currency','hacker','github','space'].filter(other => other !== id)) assert.equal(await row(other).getAttribute('data-state'), 'active');
                 assert.equal(await page.locator('[data-node="' + id + '"]').getAttribute('data-state'), 'unavailable');
+                const requestCount = requests.length;
+                await drainActivity();
+                const messages = await page.evaluate(() => window.__activityEvents.map(event => event.message));
+                const names = { weather:'WEATHER NODE', neo:'NEO TRACKING', currency:'CURRENCY SIGNAL', hacker:'HACKER FEED', github:'GITHUB TRACE', space:'DEEP SPACE SIGNAL' };
+                assert.ok(messages.includes(names[id] + ' UNAVAILABLE'));
+                assert.equal(messages.filter(message => /UNAVAILABLE$/.test(message)).length, 1);
+                assert.equal(requests.length, requestCount, 'Activity added requests');
                 modes[id] = ''; await refresh();
                 assert.equal(await row(id).getAttribute('data-state'), 'active');
             }
@@ -115,9 +160,14 @@ async function run() {
             modes.currency = 'empty'; modes.space = 'wrongday'; await refresh();
             assert.equal(await row('currency').getAttribute('data-state'), 'unavailable');
             assert.equal(await row('space').getAttribute('data-state'), 'unavailable');
+            await recordActivity();
             modes.currency = 'stale'; modes.weather = 'stale'; modes.space = ''; await refresh();
             assert.equal(await row('currency').getAttribute('data-state'), 'stale');
             assert.equal(await row('weather').getAttribute('data-state'), 'stale');
+            await drainActivity();
+            const staleMessages = await page.evaluate(() => window.__activityEvents.map(event => event.message));
+            assert.ok(staleMessages.includes('WEATHER NODE RECEIVED / OLDER OBSERVATION'));
+            assert.ok(staleMessages.includes('CURRENCY SIGNAL RECEIVED / OLDER OBSERVATION'));
             modes.currency = ''; modes.weather = ''; await refresh();
             modes.neo = 'timeout';
             await page.locator('#refresh-signals').click();
@@ -131,10 +181,14 @@ async function run() {
             let count = requests.length;
             await page.clock.runFor(300050); await settled();
             assert.equal(requests.length, count + 6);
+            assert.equal(await activity.textContent(), 'RECEIVING...');
+            await drainActivity();
             await page.evaluate(() => { window.__hidden = true; Object.defineProperty(document, 'hidden', { configurable: true, get: () => window.__hidden }); document.dispatchEvent(new Event('visibilitychange')); });
             count = requests.length;
+            const hiddenMessage = await activity.textContent();
             await page.clock.runFor(600000);
             assert.equal(requests.length, count);
+            assert.equal(await activity.textContent(), hiddenMessage);
             assert.equal(await page.locator('body').getAttribute('data-paused'), 'true');
             await page.evaluate(() => { window.__hidden = false; document.dispatchEvent(new Event('visibilitychange')); });
             await settled();
@@ -159,6 +213,13 @@ async function run() {
         for (const width of [1440,768,375]) {
             await page.setViewportSize({ width, height: 1000 });
             assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true, 'Overflow at ' + width);
+            if (!live) {
+                const documentY = () => page.locator('#systemStatusHeading').evaluate(el => el.getBoundingClientRect().top + scrollY);
+                const y = await documentY();
+                await refresh();
+                await drainActivity();
+                assert.ok(Math.abs(await documentY() - y) < 1, 'Heartbeat layout at ' + width);
+            }
             await page.screenshot({ path: path.join(os.tmpdir(), 'live-nexus-' + (live ? 'live-' : '') + width + '.png'), fullPage: true });
         }
         await page.emulateMedia({ reducedMotion:'reduce' });
@@ -169,11 +230,14 @@ async function run() {
         const count = requests.length;
         await page.keyboard.press('Enter'); await settled();
         assert.equal(requests.length, count + 6);
+        assert.equal(await page.locator('.activity-dot').evaluate(el => getComputedStyle(el).animationName), 'none');
+        assert.equal(await activity.evaluate(el => getComputedStyle(el).transitionDuration), '0s');
+        if (!live) await drainActivity();
         assert.deepEqual(errors, []);
         assert.deepEqual(media, []);
         assert.equal(await page.locator('.signal-strip .signal-entry').count(), 3);
         assert.equal(await page.locator('.site-nav [aria-current="page"]').textContent(), 'NEXUSHome');
-        console.log(live ? 'All six live source checks passed; six initial requests; no status media downloads.' : 'NEXUS controlled failure isolation, timeout, polling, refresh, metrics, layout, keyboard, links and reduced-motion checks passed.');
+        console.log(live ? 'All six live source checks passed; six initial requests; no status media downloads.' : 'NEXUS real-event heartbeat queue, idle, stale/failure messages, initial/manual/automatic refresh, six-request budget, failure isolation, timeout, polling, metrics, layout, keyboard, links and reduced-motion checks passed.');
     } finally { await browser.close(); }
 }
 run().catch(error => { console.error(error); process.exitCode = 1; }).finally(() => server.close());
